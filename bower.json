@@ -1,0 +1,13 @@
+{
+  "name": "SoulGame",
+  "version": "1.0",
+  "description": "SoulGame framework",
+  "author": {
+    "name": "Argl"
+  },
+  "main": "",
+  "dependencies": {
+    "as3corelib": "*",
+    "gsap": "https://github.com/greensock/GreenSock-AS3.git#~12.1.5"
+  }
+}

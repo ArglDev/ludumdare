@@ -1,0 +1,5 @@
+obj/
+doc/
+vendor/
+*.as3proj
+*.swf
