@@ -29,3 +29,8 @@ SONS
 - Explosions due à une collision
 - Jingle level complete
 - Jingle level failed (discret)
+
+
+FINITIONS
+- ajouter fissure orientée sur grosse planète (si on ne l'a fait pas exploser)
+- ajouter plusieurs modèle de planète

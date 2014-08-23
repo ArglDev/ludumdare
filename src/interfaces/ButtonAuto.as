@@ -28,15 +28,15 @@
 			}
 			
 			if (e.currentTarget is ButtonBuild) {
-				Global.stage.dispatchEvent(new Event (GameEvents.BUILD_LEVEL));
+				Main.game.switchBuild();
 			}
 			
 			if (e.currentTarget is ButtonReset) {
-				Global.stage.dispatchEvent(new Event (GameEvents.RESET_LEVEL));
+				Main.game.resetLevel();
 			}
 			
 			if (e.currentTarget is ButtonTest) {
-				Global.stage.dispatchEvent(new Event (GameEvents.TEST_LEVEL));
+				Main.game.switchTest();
 			}
 			
 			if (e.currentTarget is ButtonHome) {
