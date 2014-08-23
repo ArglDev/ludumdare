@@ -1,25 +1,41 @@
-package 
-{
-	import flash.display.Sprite;
-	import flash.events.Event;
+package {
+	
+	import com.soulgame.system.*;
+	import com.soulgame.utils.*;
+	import flash.display.*;
+	import flash.events.*;
+	import game.*;
+	import interfaces.*;
+	import system.*;
+	
 	
 	/**
 	 * ...
 	 * @author Argl
 	 */
-	public class Main extends Sprite 
-	{
+	public class Main extends Sprite {
+	
+		// PROPERTIES
+		private static var _game:Game;
 		
-		public function Main():void 
-		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+	
+		// CONSTRUCTOR
+		public function Main():void {
+			trace('compil')
+			Global.stage = stage;
+			
+			_game = new Game;
+
+			//Menu.init();
 		}
 		
-		private function init(e:Event = null):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
+		
+		// METHODS
+		
+		
+		// GETTERS
+		public static function get game ():Game {
+			return _game;
 		}
 		
 	}

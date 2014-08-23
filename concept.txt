@@ -1,0 +1,18 @@
+PLANETES
+- Grosse : planète mère autour de laquelle les autres gravitent
+- Moyenne : gravite autour de la grosse à vitesse X
+- Petite : 
+
+
+REGLES DE LIENS
+- Lien d'une plus grosse vers une plus petite => rotation de la petite selon sa couleur (coulour1 = horaire, couleur 2 = anti horaire)
+- Lien entre deux planète de même taille => rotation horaire autour du point d'équidistance
+
+REGLES PHYSIQUES
+- Les planètes qui tournent en orbite ont une vitesse angulaire fixe
+
+OBSTACLES
+- Martien avec une tronche blazée qui passe
+	=> Soit une fois, à un instant T
+	=> Soit selon un chemin qui boucle
+- Fusée qui passe d'une planète à l'autre
