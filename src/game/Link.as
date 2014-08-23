@@ -16,10 +16,12 @@ package game {
 		
 		
 		// CONSTRUCTOR
-		public function Link(pLittlePlanet:Planet, pBigPlanet:Planet):void {
-			pLittlePlanet.createLink(pBigPlanet);
-			_littlePlanet = pLittlePlanet;
-			_bigPlanet = pBigPlanet;
+		public function Link(pClicked:Planet, pReleased:Planet):void {
+			_littlePlanet = pClicked.isSmall ? pClicked : pReleased;
+			_bigPlanet = pClicked.isBig ? pClicked : pReleased;
+			
+			_littlePlanet.createLink(_bigPlanet);
+			
 			this.graphics.beginFill(0xFFFFFF, 0);
 			this.graphics.lineStyle(2, 0xFFFFFF);
 			this.graphics.moveTo(_littlePlanet.x, _littlePlanet.y);

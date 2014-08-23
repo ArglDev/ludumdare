@@ -1,6 +1,6 @@
 package game {
 	
-	import com.soulgame.effects.LightParticle;
+	import com.soulgame.effects.*;
 	import com.soulgame.system.*;
 	import com.soulgame.utils.*;
 	import flash.display.Sprite;
@@ -47,6 +47,8 @@ package game {
 					_linkSprite.graphics.moveTo(_clickedX, _clickedY);
 				}
 				_linkSprite.graphics.lineTo(e.stageX, e.stageY);
+				
+				Effects.particle(SparkParticle, 1, Main.game.effects, e.stageX, e.stageY, 2, 18, 0.6, true);
 			}
 		}
 		
@@ -58,28 +60,28 @@ package game {
 			var _releasedY:Number = e.stageY;
 			
 			if (_clickedPlanet != null && _releasedPlanet != null) {
-				//LINK
+				// --- Link
 				var link:Link = new Link(_clickedPlanet, _releasedPlanet)
 				_links.push(link);
 				Main.game.links.addChild(link);
 			}else if (_clickedPlanet == null) {
-				//CUT
-				var newLinks:Vector.<Link> = new Vector.<Link>();
+				// --- Cut
+				var linksTemp:Vector.<Link> = new Vector.<Link>();
 				for each(var link:Link in _links) {
 					if (checkIntersect(_clickedX, _clickedY, _releasedX, _releasedY, link)) {
+						link.littlePlanet.deleteLink();
 						Main.game.links.removeChild(link);
 					}else {
-						newLinks.push(link);
+						linksTemp.push(link);
 					}
 				}
-				_links = newLinks;
+				_links = linksTemp;
 			}
 			_linkSprite.graphics.clear();
 		}
-		
-		public static function start ():void {
+
+		public static function reset ():void {
 			_linkSprite = new Sprite();
-			_links = new Vector.<Link>();
 			Main.game.linksTemp.addChild(_linkSprite);
 			_down = false;
 			Global.stage.addEventListener(MouseEvent.MOUSE_DOWN, _click);
@@ -87,6 +89,10 @@ package game {
 			Global.stage.addEventListener(MouseEvent.MOUSE_MOVE, _move);
 		}
 		
+		public static function start ():void {
+			_links = new Vector.<Link>();
+			reset();
+		}
 		
 		public static function stop ():void {
 			if (_linkSprite && _linkSprite.parent) {

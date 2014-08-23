@@ -1,3 +1,9 @@
+TODO
+- gérer la victoire
+- gérer les sens de rotations
+- gérer les interdictions de connexion
+
+
 PLANETES
 - Grande : planète mère autour de laquelle les autres gravitent
 - Moyenne : gravite autour de la grosse à vitesse X
@@ -32,6 +38,9 @@ SONS
 
 
 FINITIONS
+- refaire title avec planète visage, yeux
+- les grosses planète on des visages
 - mettre un background vivant : étoile qui défilent lentement, des trucs qui passe, des étoiles filantes
 - ajouter fissure orientée sur grosse planète (si on ne l'a fait pas exploser)
 - ajouter plusieurs modèle de planète
+- changer icone son/qualité pour matcher les icones de gauche

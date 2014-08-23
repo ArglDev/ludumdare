@@ -27,6 +27,10 @@
 		private var _isBuilding:Boolean;
 		private var _isTesting:Boolean;
 		
+		// --- Misc.
+		private var _grid:MovieClip;
+		private var _background:MovieClip;
+		
 		
 		// CONSTRUCTOR
 		public function Game():void {
@@ -35,6 +39,8 @@
 			_links 		= new Sprite();
 			_linksTemp	= new Sprite();
 			_planets 	= new Sprite();
+			_grid 		= new Grid();
+			_background = new Background();
 		}
 		
 		
@@ -57,7 +63,6 @@
 			Screens.levelFailed.hide();
 			Screens.levelComplete.hide();
 			Screens.gameButtons.show();
-			Screens.gameButtons.grid.alpha = 0;
 			Service.cleanContainer(_effects, 0);
 			Service.cleanContainer(_linksTemp, 0);
 			
@@ -65,7 +70,7 @@
 			_isBuilding = false;
 			_isTesting = false;			
 			
-			LinkManager.stop();
+			LinkManager.reset();
 			
 			switchBuild();
 		}
@@ -82,15 +87,17 @@
 			Service.cleanContainer(_planets, 0);
 			Service.cleanContainer(_effects, 0);
 			Service.cleanContainer(_content, 0);
-			Service.cleanContainer(Global.stage, 2);
+			Service.cleanContainer(Global.stage, 1);
 			
 			Global.stage.addChild(_content);
+			_content.addChild(_background);
 			_content.addChild(_links);
 			_content.addChild(_planets);
 			_content.addChild(_effects);
 			_content.addChild(_linksTemp);
+			_content.addChild(_grid);
+			Screens.topButtons.show();
 			Screens.gameButtons.show();
-			
 			
 			// Planets
 			Planet.list = [];
@@ -101,8 +108,8 @@
 				_planets.addChild(planet);
 			}
 			
-			Screens.gameButtons.grid.alpha = 0;
-			Screens.gameButtons.mode.text = 'LEVEL ' + (_currentLevel +1);
+			LinkManager.start();
+			switchBuild();
 			var blackScreen:BlackScreen = new BlackScreen(0, 15);
 		}
 		
@@ -112,9 +119,10 @@
 		
 		public function switchBuild ():void {
 			if (!_isBuilding) {
-				LinkManager.start();
+				LinkManager.reset();
 				_links.visible = true;
-				Screens.gameButtons.grid.alpha = 1;
+				_background.gotoAndStop('build');
+				_grid.alpha = 1;
 				Screens.gameButtons.mode.text = 'BUILD';
 				_isBuilding = true;
 				_isTesting = false;
@@ -126,7 +134,8 @@
 			if (!_isTesting) {
 				LinkManager.stop();
 				_links.visible = false;
-				Screens.gameButtons.grid.alpha = 0;
+				_background.gotoAndStop('test');
+				_grid.alpha = 0;
 				Screens.gameButtons.mode.text = 'TEST';
 				_isBuilding = false;
 				_isTesting = true;

@@ -63,6 +63,10 @@
 			_distance = Maths.distance(this, pPlanet);
 		}
 		
+		public function deleteLink ():void {
+			_link = null;
+			_distance = 0;
+		}
 		
 		private function explode ():void {
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
@@ -70,7 +74,7 @@
 			_hasExplode = true;
 			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Strong.easeIn, useFrames:true } ); 
 			Effects.particle(SparkParticle, 15, Main.game.effects, x, y, 4.5, 60, 1.2, true, false, 0, -1, 0, -1);
-			Effects.particle(FireParticle, 15, Main.game.effects, x, y, 2.5, 30, 3, false, false, 0.05, -1, 0, -1);
+			Effects.particle(FireParticle, 15, Main.game.effects, x, y, 4, 30, 3, false, false, 0.05, -1, 0, -1);
 			Main.game.failLevel();
 		}
 		

@@ -32,7 +32,7 @@ package interfaces {
 		}
 		
 		public static function openTitle ():void {
-			Service.cleanContainer(Global.stage, 2);
+			Service.cleanContainer(Global.stage, 1);
 			Service.readContainer(Global.stage);
 			
 			Screens.topButtons.show();
