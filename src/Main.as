@@ -21,12 +21,15 @@ package {
 	
 		// CONSTRUCTOR
 		public function Main():void {
-			trace('compil')
 			Global.stage = stage;
 			
 			_game = new Game;
-
-			//Menu.init();
+			
+			Settings.volumeMax = 1.7;
+			Settings.load();
+			Settings.applyMute();
+			
+			Menu.init();
 		}
 		
 		

@@ -1,7 +1,7 @@
 PLANETES
 - Grosse : planète mère autour de laquelle les autres gravitent
 - Moyenne : gravite autour de la grosse à vitesse X
-- Petite : 
+- Petite : gravite autour de la grosse à vitesse X * 2 
 
 
 REGLES DE LIENS
@@ -15,4 +15,4 @@ OBSTACLES
 - Martien avec une tronche blazée qui passe
 	=> Soit une fois, à un instant T
 	=> Soit selon un chemin qui boucle
-- Fusée qui passe d'une planète à l'autre
+- Fusée qui passe d'une planète à l'autre régulièrement
