@@ -15,6 +15,7 @@
 	
 	public class ButtonAuto extends ButtonCore {
 		
+		// METHODS
 		override protected function _click(e:MouseEvent):void {
 			super._click(e);
 			

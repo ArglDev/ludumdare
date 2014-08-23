@@ -1,6 +1,8 @@
 ﻿package game {
 	
+	import com.soulgame.utils.*;
 	import com.soulgame.system.*;
+	import flash.display.Sprite;
 	import interfaces.*;
 	
 	/**
@@ -9,17 +11,36 @@
 	 */
 	public class Game extends GameCore {
 		
-		public function Game() {
-			var p1:Planet = new Planet(400, 300, 1);
-			var p4:Planet = new Planet(600, 150, 1);
-			var p2:Planet = new Planet(400, 450, 2, p1);
-			var p3:Planet = new Planet(400, 150, 2, p4);
-			var p5:Planet = new Planet(200, 400, 2, p1);
-			Global.stage.addChild(p1);
-			Global.stage.addChild(p2);
-			Global.stage.addChild(p3);
-			Global.stage.addChild(p4);
-			Global.stage.addChild(p5);
+		// PROPERTIES
+		private var _planets:Sprite;
+		
+		
+		// CONSTRUCTOR
+		public function Game():void {
+			_planets = new Sprite();
+		}
+		
+		
+		// METHODS
+		public function startLevel (pId:int):void {
+			Service.cleanContainer(Global.stage, 2);
+			Service.cleanContainer(_planets, 0);
+			
+			Global.stage.addChild(_planets);
+			
+			// Planets
+			var planet:Planet;
+			var data:Array = LevelData.DATA[pId];
+			for (var i:int = 0; i < data.length ; i++) {
+				planet = new Planet(data[i][0], data[i][1], data[i][2], data[i][3]);
+				_planets.addChild(planet);
+			}
+		}
+		
+		
+		// GETTERS
+		public function get planets():Sprite {
+			return _planets;
 		}
 	
 	}

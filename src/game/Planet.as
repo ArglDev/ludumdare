@@ -5,30 +5,39 @@
 	
 	public class Planet extends MovieClip{
 	
-		private var _type:int;
+		// PROPERTIES
+		private var _direction:int;
 		private var _link:Planet;
+		private var _originX:Number;
+		private var _originY:Number;
 		private var _radius:Number;
+		private var _type:int;
 		
-		public function Planet(pX:int,pY:int,pType:int,pLink:Planet=null) {
-			x=pX;
-			y=pY;
+		
+		// CONSTRUCTOR
+		public function Planet(pType:int, pX:int, pY:int, pDirection:int) {
+			this.addChild(new Planet1);
+			
+			x = pX;
+			y = pY;
 			_type = pType;
-			if(_type==2){
-				scaleX *= 0.5;
-				scaleY *= 0.5;
+			
+			if(_type == 1){
+				scaleX *= 0.35;
+				scaleY *= 0.35;
 			}
-			if (pLink != null) {
-				createLink(pLink);
-			}
-			addEventListener(Event.ENTER_FRAME, move);
+			
+			//this.addEventListener(Event.ENTER_FRAME, _move);
 		}
 		
+		
+		// METHODS
 		public function createLink(pPlanet:Planet) {
 			_link = pPlanet;
 			_radius = Maths.distance(this, pPlanet);
 		}
 		
-		public function move(e:Event) {
+		private function _move(e:Event) {
 			if (_type == 2) {
 				var a:Number = Maths.angleBetween(_link, this);
 				a += 1;

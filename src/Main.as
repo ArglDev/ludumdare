@@ -29,6 +29,7 @@ package {
 			Settings.load();
 			Settings.applyMute();
 			
+			LevelData.init();
 			Menu.init();
 		}
 		

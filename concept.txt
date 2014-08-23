@@ -1,5 +1,5 @@
 PLANETES
-- Grosse : planète mère autour de laquelle les autres gravitent
+- Grande : planète mère autour de laquelle les autres gravitent
 - Moyenne : gravite autour de la grosse à vitesse X
 - Petite : gravite autour de la grosse à vitesse X * 2 
 
@@ -7,12 +7,25 @@ PLANETES
 REGLES DE LIENS
 - Lien d'une plus grosse vers une plus petite => rotation de la petite selon sa couleur (coulour1 = horaire, couleur 2 = anti horaire)
 - Lien entre deux planète de même taille => rotation horaire autour du point d'équidistance
+- Certains liens sont fixés dès le début du level et ne peuvent être modifié
 
 REGLES PHYSIQUES
 - Les planètes qui tournent en orbite ont une vitesse angulaire fixe
+- Une planète qui touche le bord de l'écran explose.
+- Une petite ou moyenne planète non liée à une grande dérive jusqu'à toucher le bord de l'écran ou une autre planète. 
+- Si une des petites ou moyennes planètes n'est pas lié, on sait que le joueur à perdu, dans ce cas, pas de compte à rebourds victoire.
 
 OBSTACLES
 - Martien avec une tronche blazée qui passe
 	=> Soit une fois, à un instant T
 	=> Soit selon un chemin qui boucle
 - Fusée qui passe d'une planète à l'autre régulièrement
+
+SONS
+- une musique globale pour tout le jeu. 
+- Clic sur une planete
+- Release sur une planète => création de lien
+- Echec de création de lien
+- Explosions due à une collision
+- Jingle level complete
+- Jingle level failed (discret)

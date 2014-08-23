@@ -13,7 +13,7 @@ package interfaces {
 	public class Menu {
 		
 		private static function _clickLevel (e:MouseEvent):void {
-			trace('click level ' + ButtonMax(e.currentTarget).id)
+			Main.game.startLevel(ButtonMax(e.currentTarget).id);
 		}
 		
 		public static function init ():void {
@@ -24,15 +24,15 @@ package interfaces {
 			for (var i:int = 0; i < 50; i ++) {
 				var l:int = i / 10;
 				var c:int = i % 10;
-				button = new ButtonMax (ButtonLevel, Screens.levelSelect, String(i+1), 154 + 55 * c, 220 + 55 * l, _clickLevel, Texts.buttonLevel);
+				button = new ButtonMax (ButtonLevel, Screens.levelSelect, String(i + 1), 154 + 55 * c, 220 + 55 * l, _clickLevel, Texts.buttonLevel);
 				button.rotation = -4 + Maths.randInt(6);
-				button.id = i + 1;
+				button.id = i;
 				button.disabledAlpha = 0;
 			}
 		}
 		
 		public static function openTitle ():void {
-			Screens.levelSelect.hide();
+			Service.cleanContainer(Global.stage, 2);
 			
 			Screens.topButtons.show();
 			Screens.title.show();
