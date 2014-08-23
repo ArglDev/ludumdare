@@ -1,6 +1,7 @@
 ﻿package game {
 	
 	import com.soulgame.system.*;
+	import interfaces.*;
 	
 	/**
 	 * ...
@@ -19,7 +20,6 @@
 			Global.stage.addChild(p3);
 			Global.stage.addChild(p4);
 			Global.stage.addChild(p5);
-			
 		}
 	
 	}
