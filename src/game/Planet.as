@@ -25,6 +25,7 @@
 		private var _originY:Number;
 		private var _radius:Number;
 		private var _type:int;
+		private var _tween:TweenLite;
 
 		
 		// CONSTRUCTOR
@@ -48,7 +49,6 @@
 			_reset();
 			
 			// Listeners
-			Global.stage.addEventListener(GameEvents.BUILD_LEVEL, _build);
 			Global.stage.addEventListener(GameEvents.RESET_LEVEL, _reset);
 			if (_type == 1) {
 				Global.stage.addEventListener(GameEvents.TEST_LEVEL, _test);
@@ -58,10 +58,6 @@
 		
 		
 		// METHODS
-		private function _build (e:Event):void {
-			_reset();
-		}
-	
 		public function createLink(pPlanet:Planet) {
 			_link = pPlanet;
 			_distance = Maths.distance(this, pPlanet);
@@ -72,14 +68,15 @@
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
 			Effects.shake(Main.game.content, 10, 0, 0, (2 + Maths.rand(3)) * Maths.giveSign(), (2 + Maths.rand(3)) * Maths.giveSign());
 			_hasExplode = true;
-			TweenLite.to(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Strong.easeIn, useFrames:true } ); 
-			Effects.particle(SparkParticle, 15, Main.game.effects, x, y, 4.5, 65, 1.2, true, false, 0, -1, 0, -1);
-			Effects.particle(FireParticle, 15, Main.game.effects, x, y, 2.5, 50, 3, false, false, 0.05, -1, 0, -1);
+			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Strong.easeIn, useFrames:true } ); 
+			Effects.particle(SparkParticle, 15, Main.game.effects, x, y, 4.5, 60, 1.2, true, false, 0, -1, 0, -1);
+			Effects.particle(FireParticle, 15, Main.game.effects, x, y, 2.5, 30, 3, false, false, 0.05, -1, 0, -1);
+			Main.game.failLevel();
 		}
 		
 		private function _manage(e:Event) {
 			// Move
-			if (_distance > 0) {
+			if (_link != null) {
 				var angle:Number = Maths.angleBetween(_link, this) +1;
 				x = _link.x + Math.cos(Math.PI * angle / 180) * _distance;
 				y = _link.y + Math.sin(Math.PI * angle / 180) * _distance;
@@ -105,26 +102,27 @@
 		}
 
 		private function _reset (e:Event = null):void {
+			if (_tween) {
+				_tween.kill();
+			}
 			alpha = 1;
 			x = _originX;
 			y = _originY;
 			scaleX = scaleY = _type == 2 ? 1 : RADIUS1/RADIUS2;
 			rotation = 0;
-			_distance = 0;
 			_hasExplode = false;
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
 		}
 		
 		private function _removeEventListeners (e:Event):void {
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
-			Global.stage.removeEventListener(GameEvents.BUILD_LEVEL, _build);
 			Global.stage.removeEventListener(GameEvents.RESET_LEVEL, _reset);
 			Global.stage.removeEventListener(GameEvents.TEST_LEVEL, _test);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE, _removeEventListeners);
 		}
 		
 		private function _test (e:Event):void {
-			if (_distance == 0) {
+			if (_link == null) {
 				_derivX = (1 + Maths.rand(5)) * Maths.giveSign();
 				_derivY = (1 + Maths.rand(5)) * Maths.giveSign();
 			}

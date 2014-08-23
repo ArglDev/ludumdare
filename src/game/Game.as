@@ -17,6 +17,8 @@
 		// --- Containers
 		private var _content:Sprite;
 		private var _effects:Sprite;
+		private var _links:Sprite;
+		private var _linksTemp:Sprite;
 		private var _planets:Sprite;
 		
 		// --- Counter
@@ -26,26 +28,46 @@
 		private var _isTesting:Boolean;
 		
 		
-		
 		// CONSTRUCTOR
 		public function Game():void {
-			_content = new Sprite();
-			_effects = new Sprite();
-			_planets = new Sprite();
+			_content 	= new Sprite();
+			_effects 	= new Sprite();
+			_links 		= new Sprite();
+			_linksTemp	= new Sprite();
+			_planets 	= new Sprite();
 		}
 		
 		
 		// METHODS
+		public function failLevel ():void {
+			if (!_hasLost) {
+				_hasLost = true;
+				Screens.levelFailed.show();
+				Screens.gameButtons.hide() // (0.3);
+				Screens.levelFailed.slide(0, 100, 0, 0, 1.2);
+			}
+		}
+		
+		public function restartLevel ():void {
+			startLevel(_currentLevel);
+		}
+		
 		public function resetLevel ():void {
+			// Display List
+			Screens.levelFailed.hide();
+			Screens.levelComplete.hide();
+			Screens.gameButtons.show();
+			Screens.gameButtons.grid.alpha = 0;
+			Service.cleanContainer(_effects, 0);
+			Service.cleanContainer(_linksTemp, 0);
+			
 			_hasLost = false;
 			_isBuilding = false;
-			_isTesting = false;
+			_isTesting = false;			
 			
-			Service.cleanContainer(_effects, 0);
+			LinkManager.stop();
 			
-			Global.stage.dispatchEvent(new Event (GameEvents.RESET_LEVEL));
-			
-			var blackScreen:BlackScreen = new BlackScreen(0, 15);
+			switchBuild();
 		}
 
 		public function startLevel (pId:int):void {
@@ -55,15 +77,20 @@
 			_hasLost 		= false;
 			
 			// Display List
+			Service.cleanContainer(_links, 0);
+			Service.cleanContainer(_linksTemp, 0);
 			Service.cleanContainer(_planets, 0);
 			Service.cleanContainer(_effects, 0);
 			Service.cleanContainer(_content, 0);
 			Service.cleanContainer(Global.stage, 2);
 			
 			Global.stage.addChild(_content);
+			_content.addChild(_links);
 			_content.addChild(_planets);
 			_content.addChild(_effects);
+			_content.addChild(_linksTemp);
 			Screens.gameButtons.show();
+			
 			
 			// Planets
 			Planet.list = [];
@@ -74,8 +101,8 @@
 				_planets.addChild(planet);
 			}
 			
-			LinkManager.start();
-			
+			Screens.gameButtons.grid.alpha = 0;
+			Screens.gameButtons.mode.text = 'LEVEL ' + (_currentLevel +1);
 			var blackScreen:BlackScreen = new BlackScreen(0, 15);
 		}
 		
@@ -85,14 +112,22 @@
 		
 		public function switchBuild ():void {
 			if (!_isBuilding) {
+				LinkManager.start();
+				_links.visible = true;
+				Screens.gameButtons.grid.alpha = 1;
+				Screens.gameButtons.mode.text = 'BUILD';
 				_isBuilding = true;
 				_isTesting = false;
-				Global.stage.dispatchEvent(new Event (GameEvents.BUILD_LEVEL));
+				Global.stage.dispatchEvent(new Event (GameEvents.RESET_LEVEL));
 			}
 		}
 		
 		public function switchTest ():void {
 			if (!_isTesting) {
+				LinkManager.stop();
+				_links.visible = false;
+				Screens.gameButtons.grid.alpha = 0;
+				Screens.gameButtons.mode.text = 'TEST';
 				_isBuilding = false;
 				_isTesting = true;
 				Global.stage.dispatchEvent(new Event (GameEvents.TEST_LEVEL));
@@ -107,8 +142,11 @@
 		public function get effects():Sprite {
 			return _effects;
 		}
-		public function get planets():Sprite {
-			return _planets;
+		public function get links():Sprite {
+			return _links;
+		}
+		public function get linksTemp():Sprite {
+			return _linksTemp;
 		}
 		public function get hasLost():Boolean {
 			return _hasLost;
@@ -118,6 +156,9 @@
 		}
 		public function get isTesting():Boolean {
 			return _isTesting;
+		}
+		public function get planets():Sprite {
+			return _planets;
 		}
 		
 		

@@ -35,6 +35,10 @@
 				Main.game.resetLevel();
 			}
 			
+			if (e.currentTarget is ButtonRestart) {
+				Main.game.restartLevel();
+			}
+			
 			if (e.currentTarget is ButtonTest) {
 				Main.game.switchTest();
 			}

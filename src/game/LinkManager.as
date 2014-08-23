@@ -19,13 +19,12 @@ package game {
 		private static var _down:Boolean;
 		private static var _clickedX:Number;
 		private static var _clickedY:Number;
-		
 		private static var _links:Vector.<Link>;
 		
 		
 		// METHODS
 		private static function _click (e:MouseEvent):void {
-			trace("click");
+			//trace("click");
 			_clickedPlanet = getPlanetFocused();
 			_down = true;
 			_clickedX = e.stageX;
@@ -38,7 +37,7 @@ package game {
 		
 		private static function _move(e:MouseEvent):void {
 			if (_down) {
-				trace("move");
+				//trace("move");
 				_linkSprite.graphics.clear();
 				_linkSprite.graphics.beginFill(0xFFFFFF, 0);
 				_linkSprite.graphics.lineStyle(2, 0xFFFFFF);
@@ -52,7 +51,7 @@ package game {
 		}
 		
 		private static function _release (e:MouseEvent):void {
-			trace("release");
+			//trace("release");
 			_down = false;
 			var _releasedPlanet:Planet = getPlanetFocused();
 			var _releasedX:Number = e.stageX;
@@ -62,13 +61,13 @@ package game {
 				//LINK
 				var link:Link = new Link(_clickedPlanet, _releasedPlanet)
 				_links.push(link);
-				Global.stage.addChild(link);
-			}else if (_clickedPlanet == null && _releasedPlanet == null) {
+				Main.game.links.addChild(link);
+			}else if (_clickedPlanet == null) {
 				//CUT
 				var newLinks:Vector.<Link> = new Vector.<Link>();
 				for each(var link:Link in _links) {
 					if (checkIntersect(_clickedX, _clickedY, _releasedX, _releasedY, link)) {
-						Global.stage.removeChild(link);
+						Main.game.links.removeChild(link);
 					}else {
 						newLinks.push(link);
 					}
@@ -81,7 +80,7 @@ package game {
 		public static function start ():void {
 			_linkSprite = new Sprite();
 			_links = new Vector.<Link>();
-			Global.stage.addChild(_linkSprite);
+			Main.game.linksTemp.addChild(_linkSprite);
 			_down = false;
 			Global.stage.addEventListener(MouseEvent.MOUSE_DOWN, _click);
 			Global.stage.addEventListener(MouseEvent.MOUSE_UP, _release);
@@ -90,7 +89,9 @@ package game {
 		
 		
 		public static function stop ():void {
-			Global.stage.removeChild(_linkSprite);
+			if (_linkSprite && _linkSprite.parent) {
+				Main.game.linksTemp.removeChild(_linkSprite);
+			}
 			Global.stage.removeEventListener(MouseEvent.MOUSE_DOWN, _click);
 			Global.stage.removeEventListener(MouseEvent.MOUSE_UP, _release);
 			Global.stage.removeEventListener(MouseEvent.MOUSE_MOVE, _move);
@@ -144,7 +145,7 @@ package game {
 			_clickedPlanet = p;
 		}
 	
-		//MATHS
+		// MATHS
 		static public function getDeterminant(pX1:Number, pY1:Number, pX2:Number, pY2:Number ) {
 			return pX1 * pY2 - pY1 * pX2;
 		}
