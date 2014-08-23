@@ -63,7 +63,7 @@ package game {
 				var link:Link = new Link(_clickedPlanet, _releasedPlanet)
 				_links.push(link);
 				Global.stage.addChild(link);
-			}else if (_clickedPlanet == null && _releasedPlanet == null) {
+			}else if (_clickedPlanet == null) {
 				//CUT
 				var newLinks:Vector.<Link> = new Vector.<Link>();
 				for each(var link:Link in _links) {
