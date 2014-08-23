@@ -82,11 +82,12 @@
 				y += _derivY;
 			}
 			
-			// Collision
+			// Collision screen
 			if (x > (800 - _radius) || x < _radius || y > (600 - _radius) || y < _radius) {
 				explode();
 			}
 			
+			// Collision planets
 			var planet:Planet;
 			for (var i:int = 0; i < _list.length; i++) {
 				planet = _list[i];
