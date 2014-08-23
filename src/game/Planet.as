@@ -9,12 +9,16 @@
 	public class Planet extends MovieClip{
 	
 		// PROPERTIES
+		public static const RADIUS1:Number = 20;
+		public static const RADIUS2:Number = 50;
+		
 		private static var _list:Array = [];
 		private var _direction:int;
 		private var _link:Planet;
 		private var _originX:Number;
 		private var _originY:Number;
 		private var _radius:Number;
+		private var _distance:Number;
 		private var _type:int;
 		
 		
@@ -28,12 +32,17 @@
 			_originX = pX;
 			_originY = pY;
 			_type = pType;
+			if (_type == 1) {
+				_radius = RADIUS1;
+			}else {
+				_radius = RADIUS2;
+			}
 			_direction = pDirection;
 			_reset();
 
 			if(_type == 1){
-				scaleX *= 0.35;
-				scaleY *= 0.35;
+				scaleX *= 0.40;
+				scaleY *= 0.40;
 			}
 			
 			Global.stage.addEventListener(GameEvents.BUILD_LEVEL, _build);
@@ -50,15 +59,15 @@
 	
 		public function createLink(pPlanet:Planet) {
 			_link = pPlanet;
-			_radius = Maths.distance(this, pPlanet);
+			_distance = Maths.distance(this, pPlanet);
 		}
 		
 		private function _move(e:Event) {
 			if (_type == 2) {
 				var a:Number = Maths.angleBetween(_link, this);
 				a += 1;
-				var Mx:Number = _link.x + Math.cos(Math.PI*a/180) * _radius;
-				var My:Number = _link.y + Math.sin(Math.PI*a/180) * _radius;
+				var Mx:Number = _link.x + Math.cos(Math.PI*a/180) * _distance;
+				var My:Number = _link.y + Math.sin(Math.PI*a/180) * _distance;
 				x = Mx;
 				y = My;
 			}
@@ -84,6 +93,10 @@
 		// GETTERS
 		public function isSmall ():Boolean {
 			return scaleX < 1;
+		}
+		
+		public function get radius():Number {
+			return _radius;
 		}
 		
 		static public function get list():Array {
