@@ -9,7 +9,7 @@ package game {
 	 */
 	public class Game extends GameCore {
 		
-		public function Game() {
+		public function Game():void {
 			
 		}
 	

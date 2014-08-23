@@ -18,7 +18,13 @@
 		override protected function _click(e:MouseEvent):void {
 			super._click(e);
 			
-						
+			if (e.currentTarget is ButtonPlay || e.currentTarget is ButtonLevelSelect) {
+				Menu.openLevelSelect();
+			}
+			
+			if (e.currentTarget is ButtonHome) {
+				Menu.openTitle();
+			}
 		}
 		
 	}
