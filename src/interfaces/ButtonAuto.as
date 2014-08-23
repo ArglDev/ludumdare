@@ -26,6 +26,22 @@
 			if (e.currentTarget is ButtonHome) {
 				Menu.openTitle();
 			}
+			
+			if (e.currentTarget is ButtonBuild) {
+				Global.stage.dispatchEvent(new Event (GameEvents.BUILD_LEVEL));
+			}
+			
+			if (e.currentTarget is ButtonReset) {
+				Global.stage.dispatchEvent(new Event (GameEvents.RESET_LEVEL));
+			}
+			
+			if (e.currentTarget is ButtonTest) {
+				Global.stage.dispatchEvent(new Event (GameEvents.TEST_LEVEL));
+			}
+			
+			if (e.currentTarget is ButtonHome) {
+				Menu.openTitle();
+			}
 		}
 		
 	}
