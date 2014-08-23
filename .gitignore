@@ -3,4 +3,4 @@ doc/
 vendor/
 *.as3proj
 *.swf
-*.fla
+*/game.fla
