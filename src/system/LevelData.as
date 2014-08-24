@@ -56,6 +56,15 @@ package system {
 			DATA[lvl][7] 	= [1, 420, 450];
 			DATA[lvl][8] 	= [2, 500, 162];
 			
+			lvl = 5;
+			DATA[lvl] 		= [];
+			DATA[lvl][0] 	= [2, 305, 245];
+			DATA[lvl][1] 	= [2, 495, 245];
+			DATA[lvl][2] 	= [2, 400, 410];
+			DATA[lvl][3] 	= [1, 210, 190];
+			DATA[lvl][4] 	= [1, 590, 190];
+			DATA[lvl][5] 	= [1, 400, 520];
+			
 			
 		}
 		

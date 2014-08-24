@@ -9,6 +9,8 @@
 	import flash.events.*;
 	import game.*;
 	import system.*;
+	import flash.filters.ColorMatrixFilter;    
+	import fl.motion.AdjustColor;
 	
 	public class Planet extends MovieClip{
 	
@@ -16,8 +18,8 @@
 		public static const ANGLE_SPEED:Number = 2;
 		public static const RADIUS1:Number = 20;
 		public static const RADIUS2:Number = 50;
-		public static const SKINS1:Array = [Planet2, Planet4];
-		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4];
+		public static const SKINS1:Array = [Planet2, Planet4, Planet5];
+		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4, Planet5];
 		private static var _list:Array = [];
 		private var _derivX:Number;
 		private var _derivY:Number;
@@ -164,6 +166,67 @@
 			return str.slice(8, str.length - 1);			
 		}
 		
+		public function setGrey() {
+			var color : AdjustColor;
+			var colorMatrix : ColorMatrixFilter;
+			var matrix : Array;
+			color = new AdjustColor();
+			color.brightness = 20;
+			color.contrast = 20;
+			color.hue = 0;
+			color.saturation = -100;
+			matrix = color.CalculateFinalFlatArray();
+			colorMatrix = new ColorMatrixFilter(matrix);
+			this.filters = [colorMatrix];
+		}
+		
+		public function collideBorder():Boolean {
+			return (x > (790 - _radius) || x < _radius+10 || y > (590 - _radius) || y < _radius+10);
+		}
+		
+		public function setColor() {
+			this.filters = [];
+		}
+		
+		
+		public function checkLinkBan(pPlanet:Planet) {
+			
+			return ((pPlanet != this) && (pPlanet.isBig != this.isBig) && (!this.hasLink || this.isBig));
+			
+		}
+		
+		public function get hasLink ():Boolean {
+			return isSmall && _link != null;
+		}
+		
+		public static function get farthestPlanetScale():Number {
+			var lowestScale:Number = 1;
+			var distX:Number ;
+			var distY:Number ;
+			var newScaleX:Number ;
+			var newScaleY:Number ; 
+			for each(var planet:Planet in Planet._list) {
+				if (planet.isSmall) {
+					distX = Math.abs(planet.x - 400) + planet.radius + 50;
+					distY = Math.abs(planet.y - 300) + planet.radius + 50;
+					newScaleX = 1;
+					newScaleY = 1;
+					if (distX > 400 ) {
+						newScaleX = 400 / (distX);
+						if (lowestScale > newScaleX) {
+							lowestScale = newScaleX;
+						}
+					}
+					if (distY > 300 ) {
+						newScaleY = 300 / (distY);
+						if (lowestScale > newScaleY) {
+							lowestScale = newScaleY;
+						}
+					}
+				}
+			}
+			return lowestScale;
+		}
 		
 		// GETTERS
 		public static function get oneNotLinked ():Boolean {

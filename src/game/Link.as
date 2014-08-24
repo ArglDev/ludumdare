@@ -3,8 +3,11 @@ package game {
 	import com.greensock.*;
 	import com.greensock.easing.*;
 	import flash.display.*;
+	import flash.events.Event;
 	import flash.filters.*;
 	import game.*;
+	import com.soulgame.utils.*;
+	import com.soulgame.effects.*;
 
 	/**
 	 * ...
@@ -19,6 +22,8 @@ package game {
 		
 		// CONSTRUCTOR
 		public function Link(pClicked:Planet, pReleased:Planet):void {
+			
+			addEventListener(Event.ENTER_FRAME, anime);
 			// --- Planet defition
 			if (pClicked.isBig) {
 				_bigPlanet = pClicked;
@@ -47,6 +52,17 @@ package game {
 			this.filters = [glowFilter,blurFilter];
 		}
 		
+		private function anime(e:Event):void {
+			var u:Number;
+			var xU:Number;
+			var yU:Number;
+			for (var i:int; i < 5; i++) {
+				u = Maths.rand(1);
+				xU = _littlePlanet.x * u + _bigPlanet.x * (1 - u);
+				yU = _littlePlanet.y * u + _bigPlanet.y * (1 - u);
+				Effects.particle(SparkParticle, 1, Main.game.effects, xU, yU, 1, 30, 0.6, true);
+			}
+		}
 		
 		// GETTERS
 		public function get littlePlanet():Planet {

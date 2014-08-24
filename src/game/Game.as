@@ -7,6 +7,7 @@
 	import com.soulgame.utils.*;
 	import flash.display.*;
 	import flash.events.*;
+	import flash.geom.Point;
 	import interfaces.*;
 	import system.*;
 	
@@ -34,6 +35,7 @@
 		
 		// --- Misc.
 		private var _background:MovieClip;
+		private static var _center:Point = new Point(400, 300);
 		private var _delayParticle:Delay
 		private var _delayWin:Delay;
 		private var _failText:TextFieldMax;
@@ -148,6 +150,7 @@
 			_failText.cancelWrite();
 			if (!_isTesting) {
 				LinkManager.stop();
+				ZoomManager.start();
 				_links.visible = false;
 				_background.grid.alpha = 1;
 				TweenLite.to(_background.grid, 8, { alpha:0, useFrames:true } );
@@ -230,6 +233,11 @@
 		}
 		public function set totalDeath(p:int):void {
 			_totalDeath = p;
+		}
+		
+		static public function get center():Point 
+		{
+			return _center;
 		}
 	
 	}
