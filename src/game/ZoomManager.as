@@ -23,6 +23,9 @@ package game
 		
 		private static function run(e:Event):void {
 			var newScale:Number = Planet.farthestPlanetScale;
+			if (newScale > Main.game.content.scaleX + 0.005) {
+				newScale = Main.game.content.scaleX += 0.005;
+			}
 			Main.game.content.scaleX = newScale;
 			Main.game.content.scaleY = newScale;
 			Main.game.content.x = 400 - 400 * newScale;
