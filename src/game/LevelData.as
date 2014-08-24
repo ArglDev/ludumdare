@@ -7,6 +7,7 @@ package game {
 	public class LevelData {
 		
 		public static const DATA:Array = []
+		private static var _status:Array = [null];
 		
 		/* PLANET : 
 			size : 2=medium, 1=small
@@ -14,7 +15,6 @@ package game {
 			originY
 			direction : 0=no roation, 1=clock, 2=anti clock
 		*/
-		
 		public static function init() {
 			// LEVEL 0
 			DATA[0] = [];
@@ -48,7 +48,22 @@ package game {
 				_status[i + 1] = 1;
 			}
 			_status[1] = 2;
-			_status[51] = 2;
+		}
+		
+		public static function setStatus (pStatusId:int, pValue:int):void {
+			if (_status[pStatusId] < pValue) {
+				_status[pStatusId] = pValue;
+			}
+		}
+		
+		
+		// GETTERS / SETTERS
+		static public function get status():Array {
+			return _status;
+		}
+		
+		static public function set status(p:Array):void {
+			_status = p;
 		}
 	
 	}

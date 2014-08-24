@@ -10,8 +10,6 @@ package interfaces {
 		private static var _index:int;
 		
 		public static function init():void {
-			_index = 0;
-			
 			var i = 0;
 			LIST[i++] = "Level failed.";
 			LIST[i++] = "Try again please.";
@@ -40,7 +38,7 @@ package interfaces {
 			LIST[i++] = "Blame Zhyr, not me.";
 			LIST[i++] = "Levels of mine are easier...";
 			LIST[i++] = "Ask some help, seriously.";
-			LIST[i++] = "SOMEONE HAS TO STOP YOU!";
+			LIST[i++] = "Someone?";
 			LIST[i++] = "I'm so tired right now.";
 			LIST[i++] = "Why am I still writting?";
 			LIST[i++] = "Oh, I have an idea.";
@@ -50,7 +48,9 @@ package interfaces {
 			LIST[i++] = "I'm OUT! See you!";
 			LIST[i++] = "New feature : FAILS COUNT!";
 		}
+	
 		
+		// GETTERS / SETTERS
 		public static function get comment():String {
 			if (_index >= LIST.length) {
 				return 'FAIL - ' + Main.game.totalDeath;

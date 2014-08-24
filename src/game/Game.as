@@ -8,6 +8,7 @@
 	import flash.display.*;
 	import flash.events.*;
 	import interfaces.*;
+	import system.*;
 	
 	/**
 	 * ...
@@ -64,6 +65,7 @@
 				_totalDeath ++;
 				_hasLost = true;
 				_failComment.write(1, Failure.comment, 1);
+				SaveManager.save();
 			}
 		}
 		
@@ -86,14 +88,14 @@
 		}
 
 		public function startLevel (pId:int):void {
+			stopLevel();
+			
 			_currentLevel 	= pId;
 			_isTesting 		= false;
 			_isBuilding 	= false;
 			_hasLost 		= false;
 			
 			// Display List
-			_cleanGameSpace();
-			
 			Global.stage.addChild(_content);
 			_content.addChild(_background);
 			_content.addChild(_links);
@@ -122,7 +124,6 @@
 				_resetLevel();
 			}
 			if (!_isBuilding) {
-				LinkManager.reset();
 				_links.visible = true;
 				_background.gotoAndStop('build');
 				_isBuilding = true;

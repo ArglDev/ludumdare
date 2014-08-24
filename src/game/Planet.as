@@ -15,6 +15,8 @@
 		// PROPERTIES
 		public static const RADIUS1:Number = 20;
 		public static const RADIUS2:Number = 50;
+		public static const SKINS1:Array = [Planet2, Planet4];
+		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4];
 		private static var _list:Array = [];
 		private var _derivX:Number;
 		private var _derivY:Number;
@@ -24,6 +26,7 @@
 		private var _link:Planet;
 		private var _originX:Number;
 		private var _originY:Number;
+		
 		private var _radius:Number;
 		private var _type:int;
 		private var _tween:TweenLite;
@@ -32,21 +35,23 @@
 		// CONSTRUCTOR
 		public function Planet(pType:int, pX:int, pY:int, pDirection:int) {
 			_list[_list.length] = this;
-			//trace(_list)
-			var PlanetClass:Class = Math.random() > 0.5 ? Planet1 : Planet2;
-			this.addChild(new PlanetClass);
 			
 			// Parameters
 			_originX = pX;
 			_originY = pY;
 			_type = pType;
-			if (_type == 1) {
-				_radius = RADIUS1;
-			}else {
-				_radius = RADIUS2;
-			}
 			_direction = pDirection;
 			
+			// Init
+			var PlanetClass:Class;
+			if (_type == 1) {
+				PlanetClass = SKINS1[Maths.randInt(SKINS1.length - 1)]
+				_radius = RADIUS1;
+			}else {
+				PlanetClass = SKINS2[Maths.randInt(SKINS2.length - 1)]
+				_radius = RADIUS2;
+			}
+			this.addChild(new PlanetClass);
 			_radius = _type == 1 ? RADIUS1 : RADIUS2;
 			_reset();
 			
@@ -72,7 +77,7 @@
 		
 		private function explode ():void {
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
-			Effects.shake(Main.game.content, 10, 0, 0, (2 + Maths.rand(3)) * Maths.giveSign(), (2 + Maths.rand(3)) * Maths.giveSign());
+			//Effects.shake(Main.game.content, 10, 0, 0, (2 + Maths.rand(3)) * Maths.giveSign(), (2 + Maths.rand(3)) * Maths.giveSign());
 			_hasExplode = true;
 			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Bounce.easeOut, useFrames:true } );
 			
@@ -120,7 +125,7 @@
 			x = _originX;
 			y = _originY;
 			resetScale();
-			rotation = 0;
+			rotation = Maths.rand(180);
 			_hasExplode = false;
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
 		}
@@ -142,6 +147,11 @@
 				_derivY = (1 + Maths.rand(5)) * Maths.giveSign();
 			}
 			this.addEventListener(Event.ENTER_FRAME, _manage);
+		}
+		
+		override public function toString():String {
+			var str:String = super.toString();
+			return str.slice(8, str.length - 1);			
 		}
 		
 		
