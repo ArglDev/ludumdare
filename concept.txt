@@ -2,7 +2,8 @@ TODO
 - gérer la victoire
 - gérer les sens de rotations
 - gérer les interdictions de connexion
-
+- implémenter sauvegardes
+- BUG : Les planète restent clickable quand retour title
 
 PLANETES
 - Grande : planète mère autour de laquelle les autres gravitent
@@ -37,10 +38,19 @@ SONS
 - Jingle level failed (discret)
 
 
+ACHIEVEMENTS
+Plusieurs type de médaille sur level possibles (cumulable ou alternable) :
+ - dégommer l'allien
+ - réussir en utilisant que x grosse planète
+ - réussir à détruire toute les planète ;D
+
+
 FINITIONS
+- décaler comment failed un peu après
+- adoucir transitions build/test
+- trouver une façon simple, fixe et plus smooth de faire perdre le niveau au joueur si les planète ne sont pas linké. 
 - refaire title avec planète visage, yeux
 - les grosses planète on des visages
 - mettre un background vivant : étoile qui défilent lentement, des trucs qui passe, des étoiles filantes
 - ajouter fissure orientée sur grosse planète (si on ne l'a fait pas exploser)
-- ajouter plusieurs modèle de planète
-- changer icone son/qualité pour matcher les icones de gauche
+- ajouter formule maths dans bg buils

@@ -1,5 +1,7 @@
 package game {
 	
+	import com.greensock.*;
+	import com.greensock.easing.*;
 	import flash.display.*;
 	import flash.filters.*;
 	import game.*;
@@ -17,11 +19,25 @@ package game {
 		
 		// CONSTRUCTOR
 		public function Link(pClicked:Planet, pReleased:Planet):void {
-			_littlePlanet = pClicked.isSmall ? pClicked : pReleased;
-			_bigPlanet = pClicked.isBig ? pClicked : pReleased;
+			// --- Planet defition
+			if (pClicked.isBig) {
+				_bigPlanet = pClicked;
+				_littlePlanet = pReleased;
+			} else {
+				_bigPlanet = pReleased;
+				_littlePlanet = pClicked;
+			}
 			
+			// --- Tween
+			_littlePlanet.resetScale();
+			_bigPlanet.resetScale();
+			var scale:Number = _littlePlanet.scaleX;
+			TweenLite.from(_littlePlanet, 25, { scaleX:scale * 0.75, scaleY:scale * 0.75, ease:Elastic.easeOut, useFrames:true  } );
+			scale = _bigPlanet.scaleX;
+			TweenLite.from(_bigPlanet, 25, { scaleX:scale * 0.85, scaleY:scale * 0.85, ease:Elastic.easeOut, useFrames:true  } );
+			
+			// --- Link
 			_littlePlanet.createLink(_bigPlanet);
-			
 			this.graphics.beginFill(0xFFFFFF, 0);
 			this.graphics.lineStyle(2, 0xFFFFFF);
 			this.graphics.moveTo(_littlePlanet.x, _littlePlanet.y);

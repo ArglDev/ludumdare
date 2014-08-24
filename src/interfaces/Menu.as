@@ -31,19 +31,23 @@ package interfaces {
 			}
 		}
 		
-		public static function openTitle ():void {
-			Service.cleanContainer(Global.stage, 1);
-			Service.readContainer(Global.stage);
-			
-			Screens.topButtons.show();
-			Screens.title.show();
-			Screens.title.slide(0, 40, 0.15, 0, 1.2);
-			var blackScreen:BlackScreen = new BlackScreen(0, 25);
+		public static function openCredits ():void {
+			Screens.credits.show(Global.stage, 0, 0, true, 0.7);
+			Screens.credits.slide(0, 300);
 		}
 		
 		public static function openLevelSelect ():void {
 			Screens.levelSelect.show(Global.stage, 0, 0, true, 0.7);
 			Screens.levelSelect.slide(0, 300);
+		}
+		
+		public static function openTitle ():void {
+			Main.game.cleanGameSpace();
+			
+			Screens.title.show();
+			Screens.title.slide(0, 40, 0.15, 0, 1.2);
+			Screens.topButtons.show();
+			var blackScreen:BlackScreen = new BlackScreen(0, 20);
 		}
 	
 	}

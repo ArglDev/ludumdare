@@ -1,8 +1,10 @@
 ﻿package game {
 	
-	import com.soulgame.effects.BlackScreen;
-	import com.soulgame.utils.*;
+	import com.greensock.*;
+	import com.soulgame.effects.*;
+	import com.soulgame.interfaces.*;
 	import com.soulgame.system.*;
+	import com.soulgame.utils.*;
 	import flash.display.*;
 	import flash.events.*;
 	import interfaces.*;
@@ -26,10 +28,11 @@
 		private var _hasLost:Boolean;
 		private var _isBuilding:Boolean;
 		private var _isTesting:Boolean;
+		private var _totalDeath:int;
 		
 		// --- Misc.
-		private var _grid:MovieClip;
 		private var _background:MovieClip;
+		private var _failComment:TextFieldMax;
 		
 		
 		// CONSTRUCTOR
@@ -39,18 +42,28 @@
 			_links 		= new Sprite();
 			_linksTemp	= new Sprite();
 			_planets 	= new Sprite();
-			_grid 		= new Grid();
 			_background = new Background();
+			
+			_failComment = new TextFieldMax(Screens.gameButtons, 400, 16, Texts.failComment, '');
 		}
 		
 		
 		// METHODS
+		public function cleanGameSpace ():void {
+			Service.cleanContainer(_links, 0);
+			Service.cleanContainer(_linksTemp, 0);
+			Service.cleanContainer(_planets, 0);
+			Service.cleanContainer(_effects, 0);
+			Service.cleanContainer(_content, 0);
+			Service.cleanContainer(Global.stage, 1);
+		}
+		
 		public function failLevel ():void {
 			if (!_hasLost) {
+				var flash:FlashScreen = new FlashScreen(_effects, 0.4, 6);
+				_totalDeath ++;
 				_hasLost = true;
-				Screens.levelFailed.show();
-				Screens.gameButtons.hide() // (0.3);
-				Screens.levelFailed.slide(0, 100, 0, 0, 1.2);
+				_failComment.write(1, Failure.comment, 1);
 			}
 		}
 		
@@ -58,9 +71,8 @@
 			startLevel(_currentLevel);
 		}
 		
-		public function resetLevel ():void {
+		private function _resetLevel ():void {
 			// Display List
-			Screens.levelFailed.hide();
 			Screens.levelComplete.hide();
 			Screens.gameButtons.show();
 			Service.cleanContainer(_effects, 0);
@@ -71,8 +83,6 @@
 			_isTesting = false;			
 			
 			LinkManager.reset();
-			
-			switchBuild();
 		}
 
 		public function startLevel (pId:int):void {
@@ -82,12 +92,7 @@
 			_hasLost 		= false;
 			
 			// Display List
-			Service.cleanContainer(_links, 0);
-			Service.cleanContainer(_linksTemp, 0);
-			Service.cleanContainer(_planets, 0);
-			Service.cleanContainer(_effects, 0);
-			Service.cleanContainer(_content, 0);
-			Service.cleanContainer(Global.stage, 1);
+			cleanGameSpace();
 			
 			Global.stage.addChild(_content);
 			_content.addChild(_background);
@@ -95,7 +100,6 @@
 			_content.addChild(_planets);
 			_content.addChild(_effects);
 			_content.addChild(_linksTemp);
-			_content.addChild(_grid);
 			Screens.topButtons.show();
 			Screens.gameButtons.show();
 			
@@ -109,37 +113,38 @@
 			}
 			
 			LinkManager.start();
-			switchBuild();
+			startBuild();
 			var blackScreen:BlackScreen = new BlackScreen(0, 15);
 		}
 		
-		public function stopLevel ():void {
-			LinkManager.stop();
-		}
-		
-		public function switchBuild ():void {
+		public function startBuild ():void {
+			_failComment.cancelWrite();
+			if (_hasLost) {
+				_resetLevel();
+			}
 			if (!_isBuilding) {
 				LinkManager.reset();
 				_links.visible = true;
 				_background.gotoAndStop('build');
-				_grid.alpha = 1;
-				Screens.gameButtons.mode.text = 'BUILD';
 				_isBuilding = true;
 				_isTesting = false;
 				Global.stage.dispatchEvent(new Event (GameEvents.RESET_LEVEL));
+				ButtonCore(Screens.gameButtons.buttonBuild).disable(0, 0);
+				ButtonCore(Screens.gameButtons.buttonTest).enable();
 			}
 		}
 		
-		public function switchTest ():void {
+		public function startTest ():void {
+			_failComment.cancelWrite();
 			if (!_isTesting) {
 				LinkManager.stop();
 				_links.visible = false;
 				_background.gotoAndStop('test');
-				_grid.alpha = 0;
-				Screens.gameButtons.mode.text = 'TEST';
 				_isBuilding = false;
 				_isTesting = true;
 				Global.stage.dispatchEvent(new Event (GameEvents.TEST_LEVEL));
+				ButtonCore(Screens.gameButtons.buttonTest).disable(0, 0);
+				ButtonCore(Screens.gameButtons.buttonBuild).enable();
 			}
 		}
 		
@@ -169,11 +174,16 @@
 		public function get planets():Sprite {
 			return _planets;
 		}
-		
+		public function get totalDeath():int {
+			return _totalDeath;
+		}
 		
 		// SETTERS
 		public function set hasLost(p:Boolean):void {
 			_hasLost = p;
+		}
+		public function set totalDeath(p:int):void {
+			_totalDeath = p;
 		}
 	
 	}

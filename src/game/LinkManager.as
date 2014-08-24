@@ -3,9 +3,9 @@ package game {
 	import com.soulgame.effects.*;
 	import com.soulgame.system.*;
 	import com.soulgame.utils.*;
-	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
+	import flash.display.*;
+	import flash.events.*;
+	import system.*;
 	
 	/**
 	 * ...
@@ -29,6 +29,10 @@ package game {
 			_down = true;
 			_clickedX = e.stageX;
 			_clickedY = e.stageY;
+			
+			if (_clickedPlanet != null) {
+				Sounds.clickPlanet.read(0.2, 170);
+			}
 		}
 		
 		private static function _manage (e:Event):void {
@@ -59,17 +63,19 @@ package game {
 			var _releasedX:Number = e.stageX;
 			var _releasedY:Number = e.stageY;
 			
-			if (_clickedPlanet != null && _releasedPlanet != null) {
+			if (_clickedPlanet != null && _releasedPlanet != null && _clickedPlanet != _releasedPlanet) {
 				// --- Link
 				var link:Link = new Link(_clickedPlanet, _releasedPlanet)
+				Sounds.linkPlanet.read(0.12);
 				_links.push(link);
 				Main.game.links.addChild(link);
-			}else if (_clickedPlanet == null) {
+			} else if (_clickedPlanet == null) {
 				// --- Cut
 				var linksTemp:Vector.<Link> = new Vector.<Link>();
 				for each(var link:Link in _links) {
 					if (checkIntersect(_clickedX, _clickedY, _releasedX, _releasedY, link)) {
 						link.littlePlanet.deleteLink();
+						Sounds.pop.read(0.1);
 						Main.game.links.removeChild(link);
 					}else {
 						linksTemp.push(link);

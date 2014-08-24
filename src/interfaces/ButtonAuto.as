@@ -28,11 +28,7 @@
 			}
 			
 			if (e.currentTarget is ButtonBuild) {
-				Main.game.switchBuild();
-			}
-			
-			if (e.currentTarget is ButtonReset) {
-				Main.game.resetLevel();
+				Main.game.startBuild();
 			}
 			
 			if (e.currentTarget is ButtonRestart) {
@@ -40,11 +36,15 @@
 			}
 			
 			if (e.currentTarget is ButtonTest) {
-				Main.game.switchTest();
+				Main.game.startTest();
 			}
 			
 			if (e.currentTarget is ButtonHome) {
 				Menu.openTitle();
+			}
+			
+			if (e.currentTarget is ButtonCredits) {
+				Menu.openCredits();
 			}
 		}
 		

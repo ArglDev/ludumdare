@@ -24,19 +24,27 @@ package {
 		public function Main():void {
 			// Global
 			Global.stage = stage;
-			_game = new Game;
 			
-			// Library
+			// Init Library
 			ButtonQuality.directApply = true;
 			Settings.quality = 'high';
 			Settings.applyQuality();
-			Settings.volumeMax = 1.7;
+			Settings.volumeMax = 1;
 			Settings.load();
 			Settings.applyMute();
+			Settings.sounds = true;
+			Settings.music = true;
 			
-			// Project
+			// Init Project
+			_game = new Game;
 			LevelData.init();
 			Menu.init();
+			Failure.init();
+			
+			// Sounds
+			TextFieldMax.setSound (Sounds.typeLetter, 0.15, Sounds.typeLetter, 0.45, 1);
+			ButtonCore.setSoundClick (Sounds.buttonClick, 0.15);
+			ButtonCore.setSoundOver (Sounds.buttonOver, 0.10);
 		}
 		
 		

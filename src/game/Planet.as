@@ -8,6 +8,7 @@
 	import flash.display.*;
 	import flash.events.*;
 	import game.*;
+	import system.*;
 	
 	public class Planet extends MovieClip{
 	
@@ -31,8 +32,9 @@
 		// CONSTRUCTOR
 		public function Planet(pType:int, pX:int, pY:int, pDirection:int) {
 			_list[_list.length] = this;
-			trace(_list)
-			this.addChild(new Planet1);
+			//trace(_list)
+			var PlanetClass:Class = Math.random() > 0.5 ? Planet1 : Planet2;
+			this.addChild(new PlanetClass);
 			
 			// Parameters
 			_originX = pX;
@@ -72,9 +74,14 @@
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
 			Effects.shake(Main.game.content, 10, 0, 0, (2 + Maths.rand(3)) * Maths.giveSign(), (2 + Maths.rand(3)) * Maths.giveSign());
 			_hasExplode = true;
-			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Strong.easeIn, useFrames:true } ); 
-			Effects.particle(SparkParticle, 15, Main.game.effects, x, y, 4.5, 60, 1.2, true, false, 0, -1, 0, -1);
-			Effects.particle(FireParticle, 15, Main.game.effects, x, y, 4, 30, 3, false, false, 0.05, -1, 0, -1);
+			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Bounce.easeOut, useFrames:true } );
+			
+			Sounds.explode.read(0.2 + _radius / 100);
+			Sounds.readExplode(0.1 + _radius / 110);
+			
+			var coef:Number = scaleX * 1.7;
+			Effects.particle(SparkParticle, 20 * scaleX, Main.game.effects, x, y, 3.5 * coef, 55, 1.15, true, false, 0.1, -1, 0, -1);
+			Effects.particle(FireParticle, 20 * scaleX, Main.game.effects, x, y, 7 * coef, 15, 3 * coef);
 			Main.game.failLevel();
 		}
 		
@@ -112,10 +119,14 @@
 			alpha = 1;
 			x = _originX;
 			y = _originY;
-			scaleX = scaleY = _type == 2 ? 1 : RADIUS1/RADIUS2;
+			resetScale();
 			rotation = 0;
 			_hasExplode = false;
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
+		}
+		
+		public function resetScale ():void {
+			scaleX = scaleY = _type == 2 ? 1 : RADIUS1/RADIUS2;
 		}
 		
 		private function _removeEventListeners (e:Event):void {
