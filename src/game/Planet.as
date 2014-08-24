@@ -104,9 +104,9 @@
 			}
 			
 			// Collision screen
-			if (x > (800 - _radius) || x < _radius || y > (600 - _radius) || y < _radius) {
+			/*if (x > (800 - _radius) || x < _radius || y > (600 - _radius) || y < _radius) {
 				explode();
-			}
+			}*/
 			
 			// Collision planets
 			var planet:Planet;
@@ -170,6 +170,10 @@
 			this.filters = [colorMatrix];
 		}
 		
+		public function collideBorder():Boolean {
+			return (x > (790 - _radius) || x < _radius+10 || y > (590 - _radius) || y < _radius+10);
+		}
+		
 		public function setColor() {
 			this.filters = [];
 		}
@@ -185,8 +189,40 @@
 			return isSmall && _link != null;
 		}
 		
+		public static function get farthestPlanetScale():Number {
+			var lowestScale:Number = 1;
+			var distX:Number ;
+			var distY:Number ;
+			var newScaleX:Number ;
+			var newScaleY:Number ; 
+			for each(var planet:Planet in Planet._list) {
+				if (planet.isSmall) {
+					distX = Math.abs(planet.x - 400)+planet.radius+50;
+					distY = Math.abs(planet.y - 300)+planet.radius+50;
+					newScaleX = 1;
+					newScaleY = 1;
+					if (distX > 400 ) {
+						newScaleX = 400 / (distX);
+						if (lowestScale > newScaleX) {
+							lowestScale = newScaleX;
+						}
+					}
+					if (distY > 300 ) {
+						newScaleY = 300 / (distY);
+						if (lowestScale > newScaleY) {
+							lowestScale = newScaleY;
+						}
+					}
+				}
+			}
+			return lowestScale;
+		}
 		
 		// GETTERS
+		public function get distanceCenter():Number {
+				return Maths.distance(this, Game.center);
+		}
+		
 		public function get hasExplode():Boolean {
 			return _hasExplode;
 		}

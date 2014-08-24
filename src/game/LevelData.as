@@ -16,21 +16,21 @@ package game {
 			direction : 0=no roation, 1=clock, 2=anti clock
 		*/
 		public static function init() {
-			// LEVEL 0
+			// LEVEL 1
 			DATA[0] = [];
 			DATA[0][0] = [2, 200, 300, 0];
 			DATA[0][1] = [1, 150, 380, 1];
 			DATA[0][2] = [1, 560, 120, -1];
 			DATA[0][3] = [2, 400, 420, 0];
 						
-			// LEVEL 1
+			// LEVEL 2
 			DATA[1] = [];
 			DATA[1][0] = [2, 280, 100];
 			DATA[1][1] = [1, 350, 380];
 			DATA[1][2] = [1, 160, 520];
 			DATA[1][3] = [2, 700, 220];
 			
-			// LEVEL 1
+			// LEVEL 3
 			DATA[2] = [];
 			DATA[2][0] = [2, 380, 100];
 			DATA[2][1] = [1, 350, 380];
@@ -41,6 +41,15 @@ package game {
 			DATA[2][6] = [2, 200, 300];
 			DATA[2][7] = [1, 420, 450];
 			DATA[2][8] = [2, 500, 162];
+			
+			// LEVEL 4
+			DATA[3] = [];
+			DATA[3][0] = [2, 305, 245];
+			DATA[3][1] = [2, 495, 245];
+			DATA[3][2] = [2, 400, 410];
+			DATA[3][3] = [1, 210, 190];
+			DATA[3][4] = [1, 590, 190];
+			DATA[3][5] = [1, 400, 520];
 		}
 		
 		public static function initStatus ():void {

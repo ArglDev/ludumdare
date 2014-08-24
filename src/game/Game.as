@@ -7,6 +7,7 @@
 	import com.soulgame.utils.*;
 	import flash.display.*;
 	import flash.events.*;
+	import flash.geom.Point;
 	import interfaces.*;
 	import system.*;
 	
@@ -34,6 +35,7 @@
 		// --- Misc.
 		private var _background:MovieClip;
 		private var _failComment:TextFieldMax;
+		private static var _center:Point = new Point(400, 300);
 		
 		
 		// CONSTRUCTOR
@@ -138,6 +140,7 @@
 			_failComment.cancelWrite();
 			if (!_isTesting) {
 				LinkManager.stop();
+				ZoomManager.start();
 				_links.visible = false;
 				_background.gotoAndStop('test');
 				_isBuilding = false;
@@ -190,6 +193,11 @@
 		}
 		public function set totalDeath(p:int):void {
 			_totalDeath = p;
+		}
+		
+		static public function get center():Point 
+		{
+			return _center;
 		}
 	
 	}
