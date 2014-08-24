@@ -37,19 +37,16 @@ package {
 			
 			// Init Project
 			_game = new Game;
-			SaveManager.load();
 			LevelData.init();
+			SaveManager.load();
 			Menu.init();
 			Failure.init();
 			
 			// Sounds
 			TextFieldMax.setSound (Sounds.typeLetter, 0.16, Sounds.typeLetter, 0.2, 1);
 			ButtonCore.setSoundClick (Sounds.buttonClick, 0.30);
-			ButtonCore.setSoundOver (Sounds.buttonOver, 0.25);
+			ButtonCore.setSoundOver (Sounds.buttonOver, 0.15);
 		}
-		
-		
-		// METHODS
 		
 		
 		// GETTERS

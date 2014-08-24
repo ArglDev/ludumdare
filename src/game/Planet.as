@@ -13,6 +13,7 @@
 	public class Planet extends MovieClip{
 	
 		// PROPERTIES
+		public static const ANGLE_SPEED:Number = 2;
 		public static const RADIUS1:Number = 20;
 		public static const RADIUS2:Number = 50;
 		public static const SKINS1:Array = [Planet2, Planet4];
@@ -26,8 +27,8 @@
 		private var _link:Planet;
 		private var _originX:Number;
 		private var _originY:Number;
-		
 		private var _radius:Number;
+		private var _rotateSpeed:Number;
 		private var _type:int;
 		private var _tween:TweenLite;
 
@@ -47,9 +48,11 @@
 			if (_type == 1) {
 				PlanetClass = SKINS1[Maths.randInt(SKINS1.length - 1)]
 				_radius = RADIUS1;
-			}else {
+				_rotateSpeed = Maths.rand(5) * Maths.giveSign();
+			} else if (_type == 2) {
 				PlanetClass = SKINS2[Maths.randInt(SKINS2.length - 1)]
 				_radius = RADIUS2;
+				_rotateSpeed = Maths.rand(1.1) * Maths.giveSign();
 			}
 			this.addChild(new PlanetClass);
 			_radius = _type == 1 ? RADIUS1 : RADIUS2;
@@ -57,9 +60,7 @@
 			
 			// Listeners
 			Global.stage.addEventListener(GameEvents.RESET_LEVEL, _reset);
-			if (_type == 1) {
-				Global.stage.addEventListener(GameEvents.TEST_LEVEL, _test);
-			}
+			Global.stage.addEventListener(GameEvents.TEST_LEVEL, _test);
 			this.addEventListener(Event.REMOVED_FROM_STAGE, _removeEventListeners);
 		}
 		
@@ -91,28 +92,37 @@
 		}
 		
 		private function _manage(e:Event) {
-			// Move
-			if (_link != null) {
-				var angle:Number = Maths.angleBetween(_link, this) +1;
-				x = _link.x + Math.cos(Math.PI * angle / 180) * _distance;
-				y = _link.y + Math.sin(Math.PI * angle / 180) * _distance;
-			} else {
-				x += _derivX;
-				y += _derivY;
-			}
+			rotation += _rotateSpeed;
 			
-			// Collision screen
-			if (x > (800 - _radius) || x < _radius || y > (600 - _radius) || y < _radius) {
-				explode();
-			}
-			
-			// Collision planets
-			var planet:Planet;
-			for (var i:int = 0; i < _list.length; i++) {
-				planet = _list[i];
-				if (!planet.hasExplode && planet != this && Maths.distance(this, planet) < (radius + planet.radius)) {
+			// Small Planet 
+			if (_type == 1) {
+				// Move
+				if (_link != null) {
+					if (Math.random() > 0.4) {
+						var planetShadow:PlanetShadow = new PlanetShadow(x, y, 0.14, scaleX, 15);
+						Main.game.effectsBack.addChild(planetShadow);
+					}
+					var angle:Number = Maths.angleBetween(_link, this) +ANGLE_SPEED;
+					x = _link.x + Math.cos(Math.PI * angle / 180) * _distance;
+					y = _link.y + Math.sin(Math.PI * angle / 180) * _distance;
+				} else {
+					x += _derivX;
+					y += _derivY;
+				}
+				
+				// Collision screen
+				if (x > (800 - _radius) || x < _radius || y > (600 - _radius) || y < _radius) {
 					explode();
-					planet.explode();
+				}
+				
+				// Collision planets
+				var planet:Planet;
+				for (var i:int = 0; i < _list.length; i++) {
+					planet = _list[i];
+					if (!planet.hasExplode && planet != this && Maths.distance(this, planet) < (radius + planet.radius)) {
+						explode();
+						planet.explode();
+					}
 				}
 			}
 		}
@@ -142,7 +152,7 @@
 		}
 		
 		private function _test (e:Event):void {
-			if (_link == null) {
+			if (_type == 1 && _link == null) {
 				_derivX = (1 + Maths.rand(5)) * Maths.giveSign();
 				_derivY = (1 + Maths.rand(5)) * Maths.giveSign();
 			}
@@ -156,21 +166,30 @@
 		
 		
 		// GETTERS
+		public static function get oneNotLinked ():Boolean {
+			for (var i:int = 0; i < _list.length; i++) {
+				var planet:Planet = _list[i] as Planet;
+				if (planet.isSmall && !planet.hasLink) {
+					return true;
+				}
+			}
+			return false;
+		}
 		public function get hasExplode():Boolean {
 			return _hasExplode;
+		}
+		public function get hasLink ():Boolean {
+			return isSmall && _link != null;
 		}
 		public function get isBig ():Boolean {
 			return _radius == RADIUS2;
 		}
 		public function get isSmall ():Boolean {
 			return _radius == RADIUS1;
-		}
-
-		
+		}	
 		public function get radius():Number {
 			return _radius;
 		}
-		
 		static public function get list():Array {
 			return _list;
 		}

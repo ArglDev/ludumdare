@@ -1,9 +1,9 @@
 TODO
+- revoir cohérence globale de tout les button/frame et polices
 - gérer la victoire
-- gérer les sens de rotations
-- gérer les interdictions de connexion
+- gérer les sens de rotation
 - implémenter sauvegardes
-- BUG : Les planète restent clickable quand retour title
+- rajouter mini trace sur trajectoire plante?
 
 PLANETES
 - Grande : planète mère autour de laquelle les autres gravitent

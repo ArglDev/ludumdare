@@ -42,7 +42,7 @@ package game {
 			this.graphics.lineStyle(2, 0xFFFFFF);
 			this.graphics.moveTo(_littlePlanet.x, _littlePlanet.y);
 			this.graphics.lineTo(_bigPlanet.x, _bigPlanet.y);
-			var glowFilter:GlowFilter = new GlowFilter(0x00FFFF, 0.8, 5, 5);
+			var glowFilter:GlowFilter = new GlowFilter(0x00FFFF, 0.6, 2.5, 2.5);
 			var blurFilter:BlurFilter = new BlurFilter();
 			this.filters = [glowFilter,blurFilter];
 		}

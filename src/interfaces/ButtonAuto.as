@@ -23,20 +23,20 @@
 				Menu.openLevelSelect();
 			}
 			
-			if (e.currentTarget is ButtonHome) {
-				Menu.openTitle();
-			}
-			
 			if (e.currentTarget is ButtonBuild) {
 				Main.game.startBuild();
 			}
 			
 			if (e.currentTarget is ButtonRestart) {
-				Main.game.restartLevel();
+				Main.game.startLevel(Main.game.currentLevel);
 			}
 			
 			if (e.currentTarget is ButtonTest) {
 				Main.game.startTest();
+			}
+			
+			if (e.currentTarget is ButtonNext) {
+				Main.game.startLevel(Main.game.currentLevel+1);
 			}
 			
 			if (e.currentTarget is ButtonHome) {
@@ -46,6 +46,16 @@
 			if (e.currentTarget is ButtonCredits) {
 				Menu.openCredits();
 			}
+			
+			if (e.currentTarget is ButtonClearData) {
+				if (currentFrame == 2) {
+					Menu.clearData();
+					gotoAndStop(1);
+				} else {
+					gotoAndStop(2);
+				}
+			}
+
 		}
 		
 	}
