@@ -30,8 +30,15 @@ package game {
 			_clickedX = e.stageX;
 			_clickedY = e.stageY;
 			
-			if (_clickedPlanet != null) {
+			if (_clickedPlanet != null && (_clickedPlanet.isBig || !_clickedPlanet.hasLink)) {
 				Sounds.clickPlanet.read(0.3, 170);
+				for each(var planet:Planet in Planet.list) {
+					if (!planet.checkLinkBan(_clickedPlanet)) {
+						planet.setGrey();
+					}
+				}
+			}else {
+				_clickedPlanet = null;
 			}
 		}
 		
@@ -58,12 +65,14 @@ package game {
 		
 		private static function _release (e:MouseEvent):void {
 			//trace("release");
+			for each(var planet:Planet in Planet.list) {
+				planet.setColor();
+			}
 			_down = false;
 			var _releasedPlanet:Planet = getPlanetFocused();
 			var _releasedX:Number = e.stageX;
 			var _releasedY:Number = e.stageY;
-			
-			if (_clickedPlanet != null && _releasedPlanet != null && _clickedPlanet != _releasedPlanet) {
+			if (_clickedPlanet != null && _releasedPlanet != null && _releasedPlanet.checkLinkBan(_clickedPlanet)){
 				// --- Link
 				var link:Link = new Link(_clickedPlanet, _releasedPlanet)
 				Sounds.linkPlanet.read(.3);
@@ -145,6 +154,8 @@ package game {
 			}
 			
 		}
+		
+		
 		
 		// GETTERS
 		static public function get clickedPlanet():Planet {
