@@ -49,7 +49,7 @@
 		
 		
 		// METHODS
-		public function cleanGameSpace ():void {
+		private function _cleanGameSpace ():void {
 			Service.cleanContainer(_links, 0);
 			Service.cleanContainer(_linksTemp, 0);
 			Service.cleanContainer(_planets, 0);
@@ -92,7 +92,7 @@
 			_hasLost 		= false;
 			
 			// Display List
-			cleanGameSpace();
+			_cleanGameSpace();
 			
 			Global.stage.addChild(_content);
 			_content.addChild(_background);
@@ -104,7 +104,6 @@
 			Screens.gameButtons.show();
 			
 			// Planets
-			Planet.list = [];
 			var planet:Planet;
 			var data:Array = LevelData.DATA[pId];
 			for (var i:int = 0; i < data.length ; i++) {
@@ -146,6 +145,12 @@
 				ButtonCore(Screens.gameButtons.buttonTest).disable(0, 0);
 				ButtonCore(Screens.gameButtons.buttonBuild).enable();
 			}
+		}
+		
+		public function stopLevel ():void {
+			Planet.list = [];
+			LinkManager.stop();
+			_cleanGameSpace();
 		}
 		
 		

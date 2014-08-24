@@ -31,7 +31,7 @@ package game {
 			_clickedY = e.stageY;
 			
 			if (_clickedPlanet != null) {
-				Sounds.clickPlanet.read(0.2, 170);
+				Sounds.clickPlanet.read(0.3, 170);
 			}
 		}
 		
@@ -66,7 +66,7 @@ package game {
 			if (_clickedPlanet != null && _releasedPlanet != null && _clickedPlanet != _releasedPlanet) {
 				// --- Link
 				var link:Link = new Link(_clickedPlanet, _releasedPlanet)
-				Sounds.linkPlanet.read(0.12);
+				Sounds.linkPlanet.read(.3);
 				_links.push(link);
 				Main.game.links.addChild(link);
 			} else if (_clickedPlanet == null) {
@@ -75,7 +75,7 @@ package game {
 				for each(var link:Link in _links) {
 					if (checkIntersect(_clickedX, _clickedY, _releasedX, _releasedY, link)) {
 						link.littlePlanet.deleteLink();
-						Sounds.pop.read(0.1);
+						Sounds.pop.read(0.2);
 						Main.game.links.removeChild(link);
 					}else {
 						linksTemp.push(link);

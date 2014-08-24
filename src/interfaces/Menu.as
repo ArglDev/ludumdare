@@ -42,7 +42,7 @@ package interfaces {
 		}
 		
 		public static function openTitle ():void {
-			Main.game.cleanGameSpace();
+			Main.game.stop();
 			
 			Screens.title.show();
 			Screens.title.slide(0, 40, 0.15, 0, 1.2);

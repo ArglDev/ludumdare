@@ -24,6 +24,7 @@ package system {
 		public static var explo5:SoundMax 			= new Explo5;
 		public static var clickPlanet:SoundMax 		= new ClickPlanet;
 		public static var linkPlanet:SoundMax 		= new LinkPlanet;
+		public static var success:SoundMax 			= new Success;
 		public static var typeLetter:SoundMax 		= new TypeLetter;
 		
 		private static var _explosions:Array = [explo1, explo2, explo3, explo4, explo5];

@@ -76,8 +76,8 @@
 			_hasExplode = true;
 			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Bounce.easeOut, useFrames:true } );
 			
-			Sounds.explode.read(0.2 + _radius / 100);
-			Sounds.readExplode(0.1 + _radius / 110);
+			Sounds.explode.read(0.35 + _radius / 80);
+			Sounds.readExplode(0.2 + _radius / 90);
 			
 			var coef:Number = scaleX * 1.7;
 			Effects.particle(SparkParticle, 20 * scaleX, Main.game.effects, x, y, 3.5 * coef, 55, 1.15, true, false, 0.1, -1, 0, -1);

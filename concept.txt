@@ -27,6 +27,7 @@ OBSTACLES
 	=> Soit une fois, à un instant T
 	=> Soit selon un chemin qui boucle
 - Fusée qui passe d'une planète à l'autre régulièrement
+-Grosse météorite, pétable avec une petite pour libérer le chemin.
 
 SONS
 - une musique globale pour tout le jeu. 

@@ -1,7 +1,0 @@
-- éclairci la grille pour plus de clartée
-- failed revu : pas de fail à proprement parlé en fait. Flashscreen + un retour au build proposé, sans quité l'écran de test en fait. + comments
-- Build/test swaping + text adapted
-- Title screen revu + credits
-- explosion adaptée à la taille
-- quelques bruitage 
-- tween sur planet quand link
