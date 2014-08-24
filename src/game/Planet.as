@@ -16,10 +16,12 @@
 	
 		// PROPERTIES
 		public static const ANGLE_SPEED:Number = 2;
+		public static const DISABLED_ALPHA:Number = 1;
 		public static const RADIUS1:Number = 20;
 		public static const RADIUS2:Number = 50;
-		public static const SKINS1:Array = [Planet2, Planet4, Planet5];
-		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4, Planet5];
+		public static const SKINS1:Array = [Planet2, Planet4, Planet5, Planet6];
+		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4, Planet5, Planet6];
+		public static const ZOOM_MARGIN:Number = 30;
 		private static var _list:Array = [];
 		private var _derivX:Number;
 		private var _derivY:Number;
@@ -80,7 +82,7 @@
 		
 		private function explode ():void {
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
-			//Effects.shake(Main.game.content, 10, 0, 0, (2 + Maths.rand(3)) * Maths.giveSign(), (2 + Maths.rand(3)) * Maths.giveSign());
+			Effects.shake(Main.game.content, 10, 0, 0, (2 + Maths.rand(3)) * Maths.giveSign(), (2 + Maths.rand(3)) * Maths.giveSign());
 			_hasExplode = true;
 			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Bounce.easeOut, useFrames:true } );
 			
@@ -94,6 +96,7 @@
 		}
 		
 		private function _manage(e:Event) {
+			// Common
 			rotation += _rotateSpeed;
 			
 			// Small Planet 
@@ -110,11 +113,6 @@
 				} else {
 					x += _derivX;
 					y += _derivY;
-				}
-				
-				// Collision screen
-				if (x > (800 - _radius) || x < _radius || y > (600 - _radius) || y < _radius) {
-					explode();
 				}
 				
 				// Collision planets
@@ -177,26 +175,21 @@
 			color.saturation = -100;
 			matrix = color.CalculateFinalFlatArray();
 			colorMatrix = new ColorMatrixFilter(matrix);
-			this.filters = [colorMatrix];
+			filters = [colorMatrix];
+			alpha = DISABLED_ALPHA;
 		}
 		
 		public function collideBorder():Boolean {
-			return (x > (790 - _radius) || x < _radius+10 || y > (590 - _radius) || y < _radius+10);
+			return (x > (790 - _radius) || x < _radius + 10 || y > (590 - _radius) || y < _radius + 10);
 		}
 		
-		public function setColor() {
-			this.filters = [];
+		public function resetColor() {
+			alpha = 1;
+			filters = [];
 		}
-		
 		
 		public function checkLinkBan(pPlanet:Planet) {
-			
-			return ((pPlanet != this) && (pPlanet.isBig != this.isBig) && (!this.hasLink || this.isBig));
-			
-		}
-		
-		public function get hasLink ():Boolean {
-			return isSmall && _link != null;
+			return ((pPlanet != this) && (pPlanet.isBig != this.isBig) && (!this.hasLink || this.isBig));	
 		}
 		
 		public static function get farthestPlanetScale():Number {
@@ -207,8 +200,8 @@
 			var newScaleY:Number ; 
 			for each(var planet:Planet in Planet._list) {
 				if (planet.isSmall) {
-					distX = Math.abs(planet.x - 400) + planet.radius + 50;
-					distY = Math.abs(planet.y - 300) + planet.radius + 50;
+					distX = Math.abs(planet.x - 400) + planet.radius + ZOOM_MARGIN;
+					distY = Math.abs(planet.y - 300) + planet.radius + ZOOM_MARGIN;
 					newScaleX = 1;
 					newScaleY = 1;
 					if (distX > 400 ) {

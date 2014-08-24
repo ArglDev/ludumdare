@@ -22,16 +22,16 @@ package interfaces {
 		
 		public static function createMultiFirework ():void {
 			var delay:int = 10;
-			TweenMax.delayedCall(delay + 00, createFirework, [Screens.levelComplete, 0, -100], true);
+/*			TweenMax.delayedCall(delay + 00, createFirework, [Screens.levelComplete, 0, -100], true);
 			TweenMax.delayedCall(delay + 45, createFirework, [Screens.levelComplete, -150, 48], true);
 			TweenMax.delayedCall(delay + 60, createFirework, [Screens.levelComplete, 220, 120], true);
-			TweenMax.delayedCall(delay + 65, createFirework, [Screens.levelComplete, 30, 0], true);
+			TweenMax.delayedCall(delay + 65, createFirework, [Screens.levelComplete, 30, 0], true);*/
 		}
 		
 		public static function createFirework (pContainer:DisplayObjectContainer, pX:Number = 0, pY:Number = 0):void {
-			Effects.particle(Star2Particle, 20, pContainer, pX, pY, 10, 80, 3, true, false, 0.2, -1, 0, -1);
-			Effects.particle(FireParticle, 20, pContainer, pX, pY, 8, 60, 2, false, false, 0.6, -1, 0, -1);
-			Sounds.fall.read(0.1, 400);
+			Effects.particle(Star2Particle, 20, pContainer, pX, pY, 15, 65, 2, true, false, 0.6, -1, 0, -1);
+			Effects.particle(FireParticle, 20, pContainer, pX, pY, 18, 60, 1.5, false, false, 0.9, -1, 0, -1);
+			Sounds.fall.read(0.06, 400);
 			Sounds.teleport.read(0.45);
 			Sounds.explode.read(0.2, 50);
 		}
@@ -52,7 +52,6 @@ package interfaces {
 				var l:int = i / 10;
 				var c:int = i % 10;
 				button = new ButtonMax (ButtonLevel, Screens.levelSelect, String(i + 1), 154 + 55 * c, 220 + 55 * l, _clickLevel, Texts.buttonLevel);
-				button.rotation = -4 + Maths.randInt(6);
 				button.id = i;
 				button.disabledAlpha = 0.35;
 			}

@@ -23,7 +23,7 @@
 		// --- Format
 		public static var buttonLevel:TextFormat 	= new TextFormat (ken.fontName, 18, 0x666053, false, false, false, null, null, TextFormatAlign.CENTER);
 		public static var failText:TextFormat 		= new TextFormat (ken.fontName, 20, 0xFFFFFF, false, false, false, null, null, TextFormatAlign.CENTER);
-		public static var winText:TextFormat 		= new TextFormat (ken.fontName, 40, 0xFFFFFF, false, false, false, null, null, TextFormatAlign.CENTER);
+		public static var winText:TextFormat 		= new TextFormat (ken.fontName, 35, 0xFFFFFF, false, false, false, null, null, TextFormatAlign.CENTER);
 	}
 	
 }

@@ -4,6 +4,11 @@ TODO
 - gérer les sens de rotation
 - implémenter sauvegardes
 - rajouter mini trace sur trajectoire plante?
+- ajouter perte de partie si pas de lien
+- jingle victoire
+
+AVANT DE POSTER
+- mettre le halo en mode bitmap 
 
 PLANETES
 - Grande : planète mère autour de laquelle les autres gravitent
@@ -47,6 +52,7 @@ Plusieurs type de médaille sur level possibles (cumulable ou alternable) :
 
 
 FINITIONS
+- space pour switcher mode build/test
 - décaler comment failed un peu après
 - adoucir transitions build/test
 - trouver une façon simple, fixe et plus smooth de faire perdre le niveau au joueur si les planète ne sont pas linké. 

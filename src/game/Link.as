@@ -23,7 +23,7 @@ package game {
 		// CONSTRUCTOR
 		public function Link(pClicked:Planet, pReleased:Planet):void {
 			
-			addEventListener(Event.ENTER_FRAME, anime);
+			this.addEventListener(Event.ENTER_FRAME, _manageParticles);
 			// --- Planet defition
 			if (pClicked.isBig) {
 				_bigPlanet = pClicked;
@@ -44,23 +44,27 @@ package game {
 			// --- Link
 			_littlePlanet.createLink(_bigPlanet);
 			this.graphics.beginFill(0xFFFFFF, 0);
-			this.graphics.lineStyle(2, 0xFFFFFF);
+			this.graphics.lineStyle(1.5, 0xFFFFFF);
 			this.graphics.moveTo(_littlePlanet.x, _littlePlanet.y);
 			this.graphics.lineTo(_bigPlanet.x, _bigPlanet.y);
-			var glowFilter:GlowFilter = new GlowFilter(0x00FFFF, 0.6, 2.5, 2.5);
+			var glowFilter:GlowFilter = new GlowFilter(0x00FFFF, 0.6, 1.5, 1.5);
 			var blurFilter:BlurFilter = new BlurFilter();
 			this.filters = [glowFilter,blurFilter];
 		}
 		
-		private function anime(e:Event):void {
+		private function _manageParticles(e:Event):void {
 			var u:Number;
 			var xU:Number;
 			var yU:Number;
 			for (var i:int; i < 5; i++) {
 				u = Maths.rand(1);
 				xU = _littlePlanet.x * u + _bigPlanet.x * (1 - u);
-				yU = _littlePlanet.y * u + _bigPlanet.y * (1 - u);
-				Effects.particle(SparkParticle, 1, Main.game.effects, xU, yU, 1, 30, 0.6, true);
+				yU = _littlePlanet.y * u + _bigPlanet.y * (1 - u);	
+			}
+			if (Main.game.isTesting) {
+				
+			} else {
+				//Effects.particle(SparkParticle, 1, Main.game.effectsBack, xU, yU, 0.8, 5, 0.8, true);
 			}
 		}
 		

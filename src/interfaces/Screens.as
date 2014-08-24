@@ -9,7 +9,6 @@ package interfaces {
 	public class Screens {
 		
 		public static var credits:Screen 		= new ScreenCredits;
-		public static var levelComplete:Screen 	= new ScreenLevelComplete;
 		public static var levelSelect:Screen 	= new ScreenLevelSelect;
 		public static var gameButtons:Screen 	= new ScreenGameButtons;
 		public static var topButtons:Screen 	= new ScreenTopButtons;

@@ -24,7 +24,7 @@
 			}
 			
 			if (e.currentTarget is ButtonBuild) {
-				Main.game.startBuild();
+				Main.game.buildLevel();
 			}
 			
 			if (e.currentTarget is ButtonRestart) {
@@ -32,7 +32,7 @@
 			}
 			
 			if (e.currentTarget is ButtonTest) {
-				Main.game.startTest();
+				Main.game.testLevel();
 			}
 			
 			if (e.currentTarget is ButtonNext) {

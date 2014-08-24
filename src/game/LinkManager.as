@@ -41,14 +41,9 @@ package game {
 				_clickedPlanet = null;
 			}
 		}
-		
-		private static function _manage (e:Event):void {
-			
-		}
-		
+
 		private static function _move(e:MouseEvent):void {
 			if (_down) {
-				//trace("move");
 				_linkSprite.graphics.clear();
 				_linkSprite.graphics.beginFill(0xFFFFFF, 0);
 				_linkSprite.graphics.lineStyle(2, 0xFFFFFF);
@@ -64,9 +59,8 @@ package game {
 		}
 		
 		private static function _release (e:MouseEvent):void {
-			//trace("release");
 			for each(var planet:Planet in Planet.list) {
-				planet.setColor();
+				planet.resetColor();
 			}
 			_down = false;
 			var _releasedPlanet:Planet = getPlanetFocused();
