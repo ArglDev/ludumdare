@@ -25,6 +25,7 @@ package system {
 			_save.clear();
 
 			LevelData.init();
+			LevelData.initStatus();
 			Failure.index = 0;
 			Main.game.totalDeath = 0;
 			

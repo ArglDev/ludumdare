@@ -79,6 +79,9 @@
 				_failText.write(1, Failure.comment, 1);
 				SaveManager.save();
 				SaveManager.save();
+				if (_delayWin != null) {
+					_delayWin.stop();
+				}
 			}
 		}
 		
