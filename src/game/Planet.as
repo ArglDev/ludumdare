@@ -23,12 +23,14 @@
 		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4, Planet5, Planet6];
 		public static const ZOOM_MARGIN:Number = 30;
 		private static var _list:Array = [];
+		private var _arrowDirection:MovieClip;
 		private var _derivX:Number;
 		private var _derivY:Number;
 		private var _direction:int;
 		private var _distance:Number;
 		private var _hasExplode:Boolean
 		private var _link:Planet;
+		private var _graphic:MovieClip;
 		private var _originX:Number;
 		private var _originY:Number;
 		private var _radius:Number;
@@ -53,12 +55,16 @@
 				PlanetClass = SKINS1[Maths.randInt(SKINS1.length - 1)]
 				_radius = RADIUS1;
 				_rotateSpeed = Maths.rand(5) * Maths.giveSign();
+				_arrowDirection = new LoopArrow;
+				_arrowDirection.scaleX = _direction; 
+				this.addChild(_arrowDirection);
 			} else if (_type == 2) {
 				PlanetClass = SKINS2[Maths.randInt(SKINS2.length - 1)]
 				_radius = RADIUS2;
 				_rotateSpeed = Maths.rand(1.1) * Maths.giveSign();
 			}
-			this.addChild(new PlanetClass);
+			_graphic = new PlanetClass();
+			this.addChildAt(_graphic, 0);
 			_radius = _type == 1 ? RADIUS1 : RADIUS2;
 			_reset();
 			
@@ -82,7 +88,6 @@
 		
 		private function explode ():void {
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
-			Effects.shake(Main.game.content, 10, 0, 0, (2 + Maths.rand(3)) * Maths.giveSign(), (2 + Maths.rand(3)) * Maths.giveSign());
 			_hasExplode = true;
 			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Bounce.easeOut, useFrames:true } );
 			
@@ -104,10 +109,10 @@
 				// Move
 				if (_link != null) {
 					if (Math.random() > 0.4) {
-						var planetShadow:PlanetShadow = new PlanetShadow(x, y, 0.14, scaleX, 15);
+						var planetShadow:PlanetShadow = new PlanetShadow(x, y, 0.2, scaleX, 25);
 						Main.game.effectsBack.addChild(planetShadow);
 					}
-					var angle:Number = Maths.angleBetween(_link, this) +ANGLE_SPEED;
+					var angle:Number = Maths.angleBetween(_link, this) + (ANGLE_SPEED * -_direction);
 					x = _link.x + Math.cos(Math.PI * angle / 180) * _distance;
 					y = _link.y + Math.sin(Math.PI * angle / 180) * _distance;
 				} else {
@@ -131,11 +136,13 @@
 			if (_tween) {
 				_tween.kill();
 			}
+			if (_arrowDirection != null) {
+				_arrowDirection.alpha = 1;
+			}
 			alpha = 1;
 			x = _originX;
 			y = _originY;
 			resetScale();
-			rotation = Maths.rand(180);
 			_hasExplode = false;
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
 		}
@@ -152,6 +159,9 @@
 		}
 		
 		private function _test (e:Event):void {
+			if (_arrowDirection != null) {
+				_arrowDirection.alpha = 0;
+			}
 			if (_type == 1 && _link == null) {
 				_derivX = (1 + Maths.rand(5)) * Maths.giveSign();
 				_derivY = (1 + Maths.rand(5)) * Maths.giveSign();

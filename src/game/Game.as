@@ -72,6 +72,7 @@
 					_isBuilding = false;
 					_isTesting = false;	
 				}
+				ZoomManager.stop();
 				LinkManager.reset();
 				_failText.cancelWrite();
 				_winText.cancelWrite();
@@ -158,6 +159,7 @@
 		public function stopLevel ():void {
 			_delayWin.stop();
 			Planet.list = [];
+			ZoomManager.stop();
 			LinkManager.stop();
 			_cleanGameSpace();
 			Global.stage.removeEventListener(Event.ENTER_FRAME, _manageBar);
@@ -193,7 +195,7 @@
 			SaveManager.save();
 			_delayWin.stop();
 			_winText.write(1, 'LEVEL COMPLETE', 1);
-			Menu.createFirework(_effects, 400, 500);
+			//Menu.createFirework(_effects, 400, 500);
 			Screens.gameButtons.buttonNext.alpha = 1;
 		}
 		

@@ -1,13 +1,11 @@
 TODO
 - revoir cohérence globale de tout les button/frame et polices
-- gérer la victoire
-- gérer les sens de rotation
-- implémenter sauvegardes
 - rajouter mini trace sur trajectoire plante?
 - ajouter perte de partie si pas de lien
 - jingle victoire
 
 AVANT DE POSTER
+- bloquer bouton next si plus de level
 - mettre le halo en mode bitmap 
 
 PLANETES

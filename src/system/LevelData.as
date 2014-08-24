@@ -15,46 +15,45 @@ package system {
 			size : 2=medium, 1=small
 			originX
 			originY
-			direction : 0=no roation, 1=clock, 2=anti clock
+			direction : 0=none, -1=clock, 1=anti clock
 		*/
 		public static function init() {
 			var lvl:int;
 			
 			lvl = 0;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 400, 300, 0];
+			DATA[lvl][0] 	= [2, 400, 300];
 			DATA[lvl][1] 	= [1, 300, 380, 1];
 			
 			lvl = 1;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 400, 300, 0];
+			DATA[lvl][0] 	= [2, 400, 300];
 			DATA[lvl][1] 	= [1, 300, 380, 1];
 			DATA[lvl][2] 	= [2, 500, 380, 1];
 			
 			lvl = 2;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 200, 300, 0];
+			DATA[lvl][0] 	= [2, 200, 300];
 			DATA[lvl][1] 	= [1, 150, 380, 1];
 			DATA[lvl][2] 	= [1, 560, 120, -1];
-			DATA[lvl][3] 	= [2, 400, 420, 0];
+			DATA[lvl][3] 	= [2, 400, 420];
 			
 			lvl = 3;
 			DATA[lvl] 		= [];
-			DATA[lvl][0]	= [2, 400, 300, 0];
+			DATA[lvl][0]	= [2, 400, 300];
 			DATA[lvl][1] 	= [1, 150, 380, 1];
-			DATA[lvl][2] 	= [2, 400, 420, 0];
+			DATA[lvl][2] 	= [2, 400, 420];
 			
 			lvl = 4;
 			DATA[lvl] 		= [];
 			DATA[lvl][0] 	= [2, 380, 100];
-			DATA[lvl][1] 	= [1, 350, 380];
-			DATA[lvl][2] 	= [1, 160, 520];
+			DATA[lvl][1] 	= [1, 350, 380, -1];
+			DATA[lvl][2] 	= [1, 160, 520, 1];
 			DATA[lvl][3] 	= [2, 220, 150];
-			DATA[lvl][4] 	= [1, 700, 220];
+			DATA[lvl][4] 	= [1, 700, 220, -1];
 			DATA[lvl][5] 	= [2, 280, 400];
-			DATA[lvl][6] 	= [2, 200, 300];
-			DATA[lvl][7] 	= [1, 420, 450];
-			DATA[lvl][8] 	= [2, 500, 162];
+			DATA[lvl][6] 	= [1, 420, 450, 1];
+			DATA[lvl][7] 	= [2, 500, 162];
 			
 			lvl = 5;
 			DATA[lvl] 		= [];
