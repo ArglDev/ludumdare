@@ -19,8 +19,8 @@
 		public static const DISABLED_ALPHA:Number = 1;
 		public static const RADIUS1:Number = 20;
 		public static const RADIUS2:Number = 50;
-		public static const SKINS1:Array = [Planet2, Planet4, Planet5, Planet6];
-		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4, Planet5, Planet6];
+		public static const SKINS1:Array = [Planet2, Planet4, Planet5, Planet6, Planet7];
+		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4, Planet5, Planet6, Planet7, Planet8];
 		public static const ZOOM_MARGIN:Number = 50;
 		private static var _list:Array = [];
 		
@@ -36,13 +36,14 @@
 		private var _originY:Number;
 		private var _radius:Number;
 		private var _rotateSpeed:Number;
+		private var _skin:int;
 		private var _type:int;
 		private var _tweenExplode:TweenLite;
 		private var _tweenDrift:TweenLite;
 
 		
 		// CONSTRUCTOR
-		public function Planet(pType:int, pX:int, pY:int, pDirection:int) {
+		public function Planet(pType:int, pX:int, pY:int, pDirection:int, pSkin:int) {
 			_list[_list.length] = this;
 			
 			// Parameters
@@ -50,18 +51,19 @@
 			_originY = pY;
 			_type = pType;
 			_direction = pDirection;
+			_skin = pSkin;
 			
 			// Init
 			var PlanetClass:Class;
 			if (_type == 1) {
-				PlanetClass = SKINS1[Maths.randInt(SKINS1.length - 1)]
+				PlanetClass = SKINS1[_skin < SKINS1.length ? _skin : SKINS1.length - 1];
 				_radius = RADIUS1;
 				_rotateSpeed = Maths.rand(5) * Maths.giveSign();
 				_arrow = new ArrowDirection;
 				_arrow.scaleX = _direction; 
 				this.addChild(_arrow);
 			} else if (_type == 2) {
-				PlanetClass = SKINS2[Maths.randInt(SKINS2.length - 1)]
+				PlanetClass = SKINS2[_skin < SKINS2.length ? _skin : SKINS2.length - 1];
 				_radius = RADIUS2;
 				_rotateSpeed = Maths.rand(1.1) * Maths.giveSign();
 			}

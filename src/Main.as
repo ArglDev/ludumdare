@@ -1,5 +1,6 @@
 package {
 	
+	import com.greensock.*;
 	import com.soulgame.interfaces.*;
 	import com.soulgame.system.*;
 	import com.soulgame.utils.*;
@@ -14,16 +15,28 @@ package {
 	 * ...
 	 * @author Argl
 	 */
-	public class Main extends Sprite {
+	public class Main extends MovieClip {
 	
 		// PROPERTIES
 		private static var _game:Game;
+		private var _preloader:Preloader;
 		
 	
 		// CONSTRUCTOR
 		public function Main():void {
 			// Global
 			Global.stage = stage;
+			Global.main = stage.getChildAt(0) as DisplayObjectContainer;
+			_game = new Game();
+			stop();
+			_preloader = Service.findChild(this, Preloader) as Preloader;
+			_loadGame();
+		}
+		
+		
+		// METHODS
+		private function _init(e:Event = null):void {
+			gotoAndStop(2);
 			
 			// Init Library
 			ButtonQuality.directApply = true;
@@ -36,10 +49,11 @@ package {
 			Settings.music = true;
 			
 			// Init Project
-			_game = new Game;
+			Screens.init();
+			Main.game.init();
 			LevelData.init();
 			SaveManager.load();
-			Menu.init();
+			//Menu.init();
 			Failure.init();
 			LevelEditor.activate();
 			
@@ -47,8 +61,17 @@ package {
 			TextFieldMax.setSound (Sounds.typeLetter, 0.16, Sounds.tutu, 0.2, 1);
 			ButtonCore.setSoundClick (Sounds.buttonClick, 0.30);
 			ButtonCore.setSoundOver (Sounds.buttonOver, 0.15);
+			
+			_preloader.removeEventListener(Event.COMPLETE, _init);
+			_preloader.buttonPlayGame.y = 365;
 		}
 		
+		private function _loadGame ():void {
+			_preloader.setLoaderInfo(loaderInfo);
+			_preloader.addEventListener(Event.COMPLETE, _init);
+		}
+		
+			
 		
 		// GETTERS
 		public static function get game ():Game {

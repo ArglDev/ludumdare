@@ -22,6 +22,7 @@
 		private var _content:Sprite;
 		private var _effects:Sprite;
 		private var _effectsBack:Sprite;
+		private var _effectsInterface:Sprite;
 		private var _links:Sprite;
 		private var _linksTemp:Sprite;
 		private var _planets:Sprite;
@@ -40,25 +41,6 @@
 		private var _delayWin:Delay;
 		private var _failText:TextFieldMax;
 		private var _winText:TextFieldMax;
-		
-		
-		// CONSTRUCTOR
-		public function Game():void {
-			_content 		= new Sprite();
-			_effects 		= new Sprite();
-			_effectsBack 	= new Sprite();
-			_links 			= new Sprite();
-			_linksTemp		= new Sprite();
-			_planets 		= new Sprite();
-			_background1 	= new Background1();
-			_background2	= new Background2();
-			
-			//_background1.setChildIndex(_background1.grid, _background1.numChildren - 1);
-			
-			_delayWin	= new Delay((360 / Planet.ANGLE_SPEED), 1, 0, 11, _winLevel);;
-			_failText	= new TextFieldMax(Screens.gameButtons, 400, 16, Texts.failText, '');
-			_winText	= new TextFieldMax(Screens.gameButtons, 400, 510, Texts.winText, '');
-		}
 		
 		
 		// METHODS
@@ -89,7 +71,7 @@
 				ButtonCore(Screens.gameButtons.buttonBuild).disable(0, 0);
 				ButtonCore(Screens.gameButtons.buttonTest).enable();
 				Screens.gameButtons.connectBar.alpha = 0;
-				Screens.gameButtons.buttonNext.alpha = 0;
+				Screens.gameButtons.buttonNext.disable();
 			}
 		}
 		
@@ -115,6 +97,22 @@
 					_delayWin.stop();
 				}
 			}
+		}
+		
+		public function init ():void {
+			_content 			= new Sprite();
+			_effects 			= new Sprite();
+			_effectsBack 		= new Sprite();
+			_effectsInterface 	= new Sprite();
+			_links 				= new Sprite();
+			_linksTemp			= new Sprite();
+			_planets 			= new Sprite();
+			_background1 		= new Background1();
+			_background2		= new Background2();
+			
+			_delayWin	= new Delay((360 / Planet.ANGLE_SPEED), 1, 0, 11, _winLevel);;
+			_failText	= new TextFieldMax(Screens.gameButtons, 400, 16, Texts.failText, '');
+			_winText	= new TextFieldMax(Screens.gameButtons, 400, 510, Texts.winText, '');
 		}
 		
 		private function _manageBar (e:Event):void {
@@ -143,15 +141,16 @@
 			_content.addChild(_planets);
 			_content.addChild(_effects);
 			_content.addChild(_linksTemp);
-			Global.stage.addChild(Menu.effectsMenu);
+			Global.stage.addChild(_effectsInterface);
 			Screens.topButtons.show();
 			Screens.gameButtons.show();
+			ButtonCore(Screens.gameButtons.buttonNext).disabledAlpha = 0;
 			
 			// Planets
 			var planet:Planet;
 			var dataLvl:Array = LevelData.DATA[pId];
 			for (var p:int = 0; p < dataLvl.length ; p++) {
-				planet = new Planet(dataLvl[p][0], dataLvl[p][1], dataLvl[p][2], dataLvl[p][3]);
+				planet = new Planet(dataLvl[p][0], dataLvl[p][1], dataLvl[p][2], dataLvl[p][3], dataLvl[p][4]);
 				_planets.addChild(planet);
 			}
 			
@@ -200,8 +199,8 @@
 			SaveManager.save();
 			_delayWin.stop();
 			_winText.write(1, 'LEVEL COMPLETE', 1);
-			Sounds.successLong.read(1.1);
-			Menu.createFirework(Menu.effectsMenu, 400, 500);
+			Sounds.successLong.read(0.9);
+			Menu.createFirework(_effectsInterface, 400, 500);
 			
 			// --- Button next update
 			if (_currentLevel < LevelData.nbLevels - 1) {

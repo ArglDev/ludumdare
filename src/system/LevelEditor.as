@@ -74,7 +74,7 @@ package system {
 					
 					// --- Add planets
 					if (e.keyCode == Keys.one || e.keyCode == Keys.two) {
-						var planet:Planet = new Planet(e.keyCode == Keys.one? 1 : 2, Maths.rand(800), Maths.rand(600), e.keyCode == Keys.one? -1 : 0);
+						var planet:Planet = new Planet(e.keyCode == Keys.one? 1 : 2, Maths.rand(800), Maths.rand(600), e.keyCode == Keys.one? -1 : 0, Maths.randInt(8));
 						Main.game.planets.addChild(planet);
 					}
 					
@@ -90,13 +90,13 @@ package system {
 					var lvl:int = Main.game.currentLevel;
 					trace('\r================ LEVEL ' + lvl + ' DATA ==================');
 					for (var i:int = 0; i < Main.game.planets.numChildren ; i++) {
-						trace('DATA[lvl][' + i + '] = ' + Planet(Main.game.planets.getChildAt(i)).getEditorData() + ';');
+						trace('DATA[lvl][' + i + '] 	= ' + Planet(Main.game.planets.getChildAt(i)).getEditorData() + ';');
 					}
 					trace('============================================================');
 				}
 			}
 		}
-		
+
 		private static function _removePlanetFromList(pArray:Array, pPlanet:Planet):void {
 			var len:uint = pArray.length;
 			for (var i:Number = len; i > -1; i--) {

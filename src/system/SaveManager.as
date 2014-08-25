@@ -38,12 +38,12 @@ package system {
 				Failure.index = _save.data.indexComment;
 				Main.game.totalDeath = _save.data.totalDeath;
 				LevelData.status = Service.cloneObject(_save.data.levelsStatus);
-				Service.readObject(LevelData.status, 'LOAD  levelStatus');
+			//	Service.readObject(LevelData.status, 'LOAD  levelStatus');
 			} else {
 				Failure.index = 0; 
 				Main.game.totalDeath = 0;
 				LevelData.initStatus();
-				Service.readObject(LevelData.status, 'INIT levelStatus');
+			//	Service.readObject(LevelData.status, 'INIT levelStatus');
 			}
 		}
 

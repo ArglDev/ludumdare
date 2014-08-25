@@ -2,6 +2,7 @@
 	
 	import com.soulgame.interfaces.*;
 	import com.soulgame.system.*;
+	import com.soulgame.utils.*;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
@@ -13,12 +14,17 @@
 	 * ...
 	 * @author Argl
 	 */
-	
 	public class ButtonAuto extends ButtonCore {
 		
 		// METHODS
 		override protected function _click(e:MouseEvent):void {
 			super._click(e);
+			
+			if (e.currentTarget is ButtonPlayGame) {
+				Service.cleanContainer(Global.stage, 1);
+				Service.cleanContainer(Global.main, 0);
+				Menu.init();
+			}
 			
 			if (e.currentTarget is ButtonPlay || e.currentTarget is ButtonLevelSelect) {
 				Menu.openLevelSelect();

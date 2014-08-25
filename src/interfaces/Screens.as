@@ -13,6 +13,14 @@ package interfaces {
 		public static var gameButtons:Screen 	= new ScreenGameButtons;
 		public static var topButtons:Screen 	= new ScreenTopButtons;
 		public static var title:Screen 			= new ScreenTitle;
+		
+		public static function init ():void {
+			credits 		= new ScreenCredits;
+			levelSelect 	= new ScreenLevelSelect;
+			gameButtons 	= new ScreenGameButtons;
+			topButtons 		= new ScreenTopButtons;
+			title 			= new ScreenTitle;
+		}
 	
 	}
 

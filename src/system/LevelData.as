@@ -16,9 +16,11 @@ package system {
 			originX
 			originY
 			direction : 0=none, -1=clock, 1=anti clock
+			skins : (type 1 >> 0-4) (type 2 >> 0-7) 
 		*/
 		public static function init() {
 			var lvl:int;
+			var decay:int;
 			
 			lvl = 0;
 			DATA[lvl] 		= [];
@@ -62,7 +64,35 @@ package system {
 			DATA[lvl][2] 	= [2, 400, 410];
 			DATA[lvl][3] 	= [1, 210, 190, -1];
 			DATA[lvl][4] 	= [1, 590, 190, -1];
-			DATA[lvl][5] 	= [1, 400, 520, -1];		
+			DATA[lvl][5] 	= [1, 400, 520, -1];
+			
+			// ============================================================
+			// ARGL
+			// ============================================================
+			lvl = 6;
+			decay = 40;
+			DATA[lvl] 		= [];
+			DATA[lvl][0] 	= [2, 409, 310+decay, 0];
+			DATA[lvl][1] 	= [1, 705, 516+decay, 1];
+			DATA[lvl][2] 	= [2, 189, 137+decay, 0];
+			DATA[lvl][3] 	= [2, 51, 61+decay, 0];
+			DATA[lvl][4] 	= [1, 243, 75+decay, -1];
+			DATA[lvl][5] 	= [2, 781, 7+decay, 0];
+			DATA[lvl][6] 	= [1, 260, 196+decay, 1];
+			
+			lvl = 7;
+			decay = 50;
+			DATA[lvl] 		= [];
+			DATA[lvl][0] 	= [2, 299+decay, 472, 0];
+			DATA[lvl][1] 	= [1, 64+decay, 500, 1];
+			DATA[lvl][2] 	= [2, 451+decay, 425, 0];
+			DATA[lvl][3] 	= [2, 574+decay, 324, 0];
+			DATA[lvl][4] 	= [2, 634+decay, 227, 0];
+			DATA[lvl][5] 	= [1, 374+decay, 445, 1];
+			DATA[lvl][6] 	= [1, 481+decay, 118, 1];
+			DATA[lvl][7] 	= [2, 105+decay, 151, 0];
+			DATA[lvl][8] 	= [2, 25+decay, 191, 0];
+			DATA[lvl][9] 	= [2, 270+decay, 355, 0];
 		}
 		
 		public static function initStatus ():void {

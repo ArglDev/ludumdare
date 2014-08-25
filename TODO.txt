@@ -10,12 +10,10 @@ AVANT DE POSTER
 
 
 FINITIONS
-- créer un générateur aléatoire trié comem seq RG2 pour planète (ou bien définir à l'avance?)
 - faire en sorte que si petite liée, peut être quand meme clickable pour bien voir qu'elle peut plus se lier à rien. PLus logique
 - bouton speed up
 - rajouter mini trace sur trajectoire plante?
 - mettre grosse planètes sombre aléatoire en fond.
-- gérer les graphics de planète de façon non randome
 - space pour switcher mode build/test
 - décaler comment failed un peu après
 - refaire title avec planète visage, yeux

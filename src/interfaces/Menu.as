@@ -17,7 +17,7 @@ package interfaces {
 	public class Menu {
 		
 		// PROPERTIES
-		private static var _effectsMenu:Sprite;
+		
 		
 		
 		// METHODS
@@ -54,8 +54,6 @@ package interfaces {
 		}
 		
 		public static function init ():void {
-			_effectsMenu = new Sprite();
-			
 			openTitle();
 			
 			// Level select buttons
@@ -98,15 +96,14 @@ package interfaces {
 					status == 1 ? child.disable() : child.enable();
 				}
 			}
-			Service.readObject(LevelData.status, 'UPDATE STATUS');
+			//Service.readObject(LevelData.status, 'UPDATE STATUS');
 		}
 		
 		
 		// GETTERS
-		static public function get effectsMenu():Sprite {
-			return _effectsMenu;
+		static public function get _effectsInterface():Sprite {
+			return _effectsInterface;
 		}
-		
 	
 	}
 

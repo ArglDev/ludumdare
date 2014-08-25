@@ -13,13 +13,13 @@ package game {
 		// CONSTRUCTOR
 		public function StarGenerator():void {
 			Service.cleanContainer(this, 0);
-			this.addEventListener(Event.ENTER_FRAME, _init);
+			this.addEventListener(Event.ADDED_TO_STAGE, _init);
 		}
 		
 		
 		// METHODS
 		private function _init (e:Event):void {
-			this.removeEventListener(Event.ENTER_FRAME, _init);
+			this.removeEventListener(Event.ADDED_TO_STAGE, _init);
 			
 			var star:MovieClip;
 			for (var i:int = 0; i < _nb; i++) {
