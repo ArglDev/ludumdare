@@ -1,14 +1,7 @@
 TODO
-- revoir cohérence globale de tout les button/frame et polices
-- animer ecran titre 
 - animer étoile bg en fonction souris
 - rajouter un level à moi après le 11
  
-AVANT DE POSTER
-- bloquer bouton next si plus de level
-- mettre le halo en mode bitmap 
-- désactiver l'éditeur de niveau
-- faire une thumbnail cool
 
 FINITIONS
 - small qui perd son link = destroy
@@ -21,3 +14,4 @@ FINITIONS
 - refaire title avec planète visage, yeux
 - les grosses planète on des visages
 - mettre un background vivant : étoile qui défilent lentement, des trucs qui passe, des étoiles filantes
+- virer la fleche premiers niveaux (avant le tuto explicatif)

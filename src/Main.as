@@ -2,6 +2,7 @@ package {
 	
 	import com.greensock.*;
 	import com.greensock.easing.*;
+	import com.soulgame.effects.*;
 	import com.soulgame.interfaces.*;
 	import com.soulgame.system.*;
 	import com.soulgame.utils.*;
@@ -67,7 +68,11 @@ package {
 			Sounds.clickPlanet.read(0.8);
 			_preloader.removeEventListener(Event.COMPLETE, _init);
 			_preloader.buttonPlayGame.y = 365;
+			var filter:FilterFade = new FilterFade(_preloader.bar, 0.8, 0.1);
+			TweenLite.from(_preloader.bar, 30, { useFrames:true, scaleY:0.7, ease:Elastic.easeOut } );
 			TweenLite.from(_preloader.buttonPlayGame, 30, { useFrames:true, scaleX:0.2, scaleY:0.2, ease:Elastic.easeOut } );
+			Effects.particle(SparkParticle, 25, _preloader, 580, 312, 5, 30, 1, true, false, 0.1, -1, -1, 0);
+			Effects.particle(LinkParticle, 25, _preloader, 580, 312, 3, 25, 1, false, false, 0, -1, -1, 0);
 		}
 		
 		private function _loadGame ():void {

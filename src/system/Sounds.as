@@ -13,6 +13,7 @@ package system {
 		public static var buttonOver:SoundMax 		= new ButtonOver;
 		public static var bip:SoundMax 				= new Bip;
 		public static var boing:SoundMax 			= new Boing;
+		public static var clickPlanet:SoundMax 		= new ClickPlanet;
 		public static var downUp:SoundMax 			= new DownUp;
 		public static var explode:SoundMax 			= new Explode;
 		public static var fall:SoundMax 			= new Fall;
@@ -23,8 +24,8 @@ package system {
 		public static var explo3:SoundMax 			= new Explo3;
 		public static var explo4:SoundMax 			= new Explo4;
 		public static var explo5:SoundMax 			= new Explo5;
-		public static var clickPlanet:SoundMax 		= new ClickPlanet;
 		public static var linkPlanet:SoundMax 		= new LinkPlanet;
+		public static var quietSpace:SoundMax 		= new QuietSpace;
 		public static var successShort:SoundMax 	= new SuccessShort;
 		public static var successLong:SoundMax 		= new SuccessLong;
 		public static var teleport:SoundMax 		= new Teleport;

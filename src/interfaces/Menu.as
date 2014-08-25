@@ -56,12 +56,14 @@ package interfaces {
 		public static function init ():void {
 			openTitle();
 			
+			Sounds.quietSpace.read(0.65, 0, -1, false);
+			
 			// Level select buttons
 			var button:ButtonMax;
 			for (var i:int = 0; i < LevelData.nbLevels; i ++) {
 				var l:int = i / 5;
 				var c:int = i % 5;
-				button = new ButtonMax (ButtonLevel, Screens.levelSelect, String(i + 1), 154 + 55 * c, 220 + 55 * l, _clickLevel, Texts.buttonLevel);
+				button = new ButtonMax (ButtonLevel, Screens.levelSelect, String(i + 1), 250 + 75 * c, 230 + 75 * l, _clickLevel, Texts.buttonLevel);
 				button.id = i;
 				button.disabledAlpha = 0.35;
 			}
@@ -79,6 +81,7 @@ package interfaces {
 		}
 		
 		public static function openTitle ():void {
+			Screens.title.gotoAndPlay(1);
 			Main.game.stopLevel();
 			Screens.title.buttonClear.gotoAndStop(1);
 			Screens.title.show();

@@ -16,8 +16,6 @@
 		
 		// PROPERTIES
 		// --- Fonts
-		private static var shark:Font = new Shark;
-		private static var comic:Font = new Comic;
 		private static var ken:Font = new Ken;
 		
 		// --- Format

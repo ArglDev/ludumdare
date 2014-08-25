@@ -26,8 +26,8 @@ package system {
 			// 1 TUTO : control
 			lvl = 0;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 400, 300];
-			DATA[lvl][1] 	= [1, 300, 380, 1];
+			DATA[lvl][0] 	= [2, 400, 300, 0, 2];
+			DATA[lvl][1] 	= [1, 300, 380, 1, 5];
 			
 			// 2 TUTO : small + 1 link
 			lvl ++;
@@ -36,11 +36,6 @@ package system {
 			DATA[lvl][1] 	= [1, 100, 370, 1];
 			DATA[lvl][2] 	= [2, 500, 370, 0];
 			DATA[lvl][3] 	= [1, 700, 350, 1];
-			
-		/*	DATA[lvl][0]  = [2, 300, 225, 0];
-			DATA[lvl][1]  = [1, 100, 90, 1];
-			DATA[lvl][2]  = [2, 500, 386, 0];
-			DATA[lvl][3]  = [1, 700, 520, 1];*/
 			
 			// 3 TUTO : big = multi link
 			lvl ++;

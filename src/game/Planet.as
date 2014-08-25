@@ -19,8 +19,7 @@
 		public static const DISABLED_ALPHA:Number = 1;
 		public static const RADIUS1:Number = 20;
 		public static const RADIUS2:Number = 50;
-		public static const SKINS1:Array = [Planet2, Planet4, Planet5, Planet6, Planet7];
-		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4, Planet5, Planet6, Planet7, Planet8];
+		public static const SKINS:Array = [Planet0, Planet1, Planet2, Planet3, Planet4, Planet5, Planet6, Planet7];
 		public static const ZOOM_MARGIN:Number = 50;
 		private static var _list:Array = [];
 		
@@ -54,19 +53,17 @@
 			_skin = pSkin;
 			
 			// Init
-			var PlanetClass:Class;
 			if (_type == 1) {
-				PlanetClass = SKINS1[_skin < SKINS1.length ? _skin : SKINS1.length - 1];
 				_radius = RADIUS1;
 				_rotateSpeed = Maths.rand(5) * Maths.giveSign();
 				_arrow = new ArrowDirection;
 				_arrow.scaleX = _direction; 
 				this.addChild(_arrow);
 			} else if (_type == 2) {
-				PlanetClass = SKINS2[_skin < SKINS2.length ? _skin : SKINS2.length - 1];
 				_radius = RADIUS2;
 				_rotateSpeed = Maths.rand(1.1) * Maths.giveSign();
 			}
+			var PlanetClass:Class = SKINS[_skin < SKINS.length ? _skin : SKINS.length - 1];
 			_graphic = new PlanetClass();
 			this.addChildAt(_graphic, 0);
 			_radius = _type == 1 ? RADIUS1 : RADIUS2;
@@ -101,8 +98,8 @@
 				_killTweens();
 				_tweenExplode = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Bounce.easeOut, useFrames:true } );
 				
-				Sounds.explode.read(0.35 + _radius / 80);
-				Sounds.readExplode(0.2 + _radius / 90);
+				Sounds.explode.read(0.1 + _radius / 150);
+				Sounds.readExplode(0.1 + _radius / 175);
 				
 				var coef:Number = scaleX * 1.7;
 				Effects.particle(SparkParticle, 20 * scaleX, Main.game.effects, x, y, 3.5 * coef, 55, 1.15, true, false, 0.1, -1, 0, -1);
@@ -145,7 +142,7 @@
 			if (_type == 1) {
 				// Move
 				if (_link != null) {
-					if (Math.random() > 0.4) {
+					if (Math.random() > 0.15) {
 						var planetShadow:PlanetShadow = new PlanetShadow(x, y, 0.2, scaleX, 25);
 						Main.game.effectsBack.addChild(planetShadow);
 					}
