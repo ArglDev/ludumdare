@@ -18,6 +18,8 @@
 	public class Game extends GameCore {
 		
 		// PROPERTIES
+		private const NB_TUTO:int = 4;
+			
 		// --- Containers
 		private var _content:Sprite;
 		private var _effects:Sprite;
@@ -65,6 +67,7 @@
 				_links.visible = true;
 				_background1.grid.alpha = 0;
 				_background2.alpha = 0;
+				_background1.tuto.gotoAndStop(_currentLevel < NB_TUTO ? _currentLevel+2 : 1);
 				TweenLite.to(_background1.grid, 8, { alpha:1, useFrames:true } );
 				_isBuilding = true;
 				_isTesting = false;
@@ -85,7 +88,6 @@
 			Service.cleanContainer(_linksTemp, 0);
 			Service.cleanContainer(_planets, 0);
 			Service.cleanContainer(Global.stage, 1);
-			Service.readContainer(Main.game.effectsBack, 'EFFECTS BACK');
 		}
 		
 		public function failLevel ():void {
@@ -147,7 +149,6 @@
 			Global.stage.addChild(_effectsInterface);
 			Screens.topButtons.show();
 			Screens.gameButtons.show();
-			ButtonCore(Screens.gameButtons.buttonNext).disabledAlpha = 0;
 			
 			// Planets
 			var planet:Planet;
@@ -157,6 +158,9 @@
 				_planets.addChild(planet);
 			}
 			
+			// Misc.
+			ButtonCore(Screens.gameButtons.buttonNext).disabledAlpha = 0;
+			Screens.gameButtons.levelNum.text = 'LEVEL ' + (_currentLevel+1);
 			LinkManager.start();
 			buildLevel();
 			var blackScreen:BlackScreen = new BlackScreen(0, 15);
@@ -176,12 +180,12 @@
 			_winText.cancelWrite();
 			if (!_isTesting) {
 				Service.cleanContainer(_effectsBack, 0);
-				
 				LinkManager.stop();
 				ZoomManager.start();
 				_links.visible = false;
 				_background1.grid.alpha = 1;
 				_background2.alpha = 1;
+				_background1.tuto.gotoAndStop(1);
 				TweenLite.to(_background1.grid, 8, { alpha:0, useFrames:true } );
 				_isBuilding = false;
 				_isTesting = true;
@@ -204,7 +208,7 @@
 			SaveManager.save();
 			_delayWin.stop();
 			_winText.write(1, 'LEVEL COMPLETE', 1);
-			Sounds.successLong.read(0.9);
+			Sounds.successLong.read(0.85);
 			Menu.createFirework(_effectsInterface, 400, 500);
 			
 			// --- Button next update

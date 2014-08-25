@@ -1,6 +1,4 @@
 TODO
-- TUTO
-- particle sur lien
 - revoir cohérence globale de tout les button/frame et polices
 - animer ecran titre 
 - animer étoile bg en fonction souris
@@ -9,7 +7,6 @@ TODO
 AVANT DE POSTER
 - bloquer bouton next si plus de level
 - mettre le halo en mode bitmap 
-- bouton Unlock All Levels
 - désactiver l'éditeur de niveau
 - faire une thumbnail cool
 

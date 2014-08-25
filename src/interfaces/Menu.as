@@ -59,8 +59,8 @@ package interfaces {
 			// Level select buttons
 			var button:ButtonMax;
 			for (var i:int = 0; i < LevelData.nbLevels; i ++) {
-				var l:int = i / 10;
-				var c:int = i % 10;
+				var l:int = i / 5;
+				var c:int = i % 5;
 				button = new ButtonMax (ButtonLevel, Screens.levelSelect, String(i + 1), 154 + 55 * c, 220 + 55 * l, _clickLevel, Texts.buttonLevel);
 				button.id = i;
 				button.disabledAlpha = 0.35;

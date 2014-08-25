@@ -32,10 +32,15 @@ package system {
 			// 2 TUTO : small + 1 link
 			lvl ++;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 280, 225, 0];
-			DATA[lvl][1] 	= [1, 71, 90, 1];
-			DATA[lvl][2] 	= [2, 466, 386, 0];
-			DATA[lvl][3] 	= [1, 685, 520, 1];
+			DATA[lvl][0] 	= [2, 300, 350, 0];
+			DATA[lvl][1] 	= [1, 100, 370, 1];
+			DATA[lvl][2] 	= [2, 500, 370, 0];
+			DATA[lvl][3] 	= [1, 700, 350, 1];
+			
+		/*	DATA[lvl][0]  = [2, 300, 225, 0];
+			DATA[lvl][1]  = [1, 100, 90, 1];
+			DATA[lvl][2]  = [2, 500, 386, 0];
+			DATA[lvl][3]  = [1, 700, 520, 1];*/
 			
 			// 3 TUTO : big = multi link
 			lvl ++;
@@ -45,7 +50,7 @@ package system {
 			DATA[lvl][2] 	= [1, 560, 120, -1];
 			DATA[lvl][3] 	= [2, 400, 420];
 			
-			// 4 TUTO : sens
+			// 4 TUTO : direction
 			lvl ++;
 			DATA[lvl] 		= [];
 			DATA[lvl][0]	= [2, 515, 193, 0];
