@@ -42,6 +42,11 @@
 				Main.game.testLevel();
 			}
 			
+			if (e.currentTarget is ButtonUnlockAll) {
+				LevelData.unlockAll();
+				Menu.updateLevelButtons();
+			}
+			
 			if (e.currentTarget is ButtonNext) {
 				Main.game.startLevel(Main.game.currentLevel+1);
 			}

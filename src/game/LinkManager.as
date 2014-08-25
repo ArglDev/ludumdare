@@ -97,6 +97,8 @@ package game {
 		}
 		
 		private static function _release (e:MouseEvent):void {
+			Service.readContainer(Main.game.links, 'LINKS CONTAINERES');
+			
 			for each(var planet:Planet in Planet.list) {
 				planet.resetColor();
 			}

@@ -1,6 +1,11 @@
 TODO
+- TUTO
+- particle sur lien
 - revoir cohérence globale de tout les button/frame et polices
-
+- animer ecran titre 
+- animer étoile bg en fonction souris
+- rajouter un level à moi après le 11
+ 
 AVANT DE POSTER
 - bloquer bouton next si plus de level
 - mettre le halo en mode bitmap 
@@ -8,8 +13,8 @@ AVANT DE POSTER
 - désactiver l'éditeur de niveau
 - faire une thumbnail cool
 
-
 FINITIONS
+- small qui perd son link = destroy
 - faire en sorte que si petite liée, peut être quand meme clickable pour bien voir qu'elle peut plus se lier à rien. PLus logique
 - bouton speed up
 - rajouter mini trace sur trajectoire plante?

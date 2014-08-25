@@ -22,8 +22,6 @@ package game {
 		
 		// CONSTRUCTOR
 		public function Link(pClicked:Planet, pReleased:Planet):void {
-			
-			this.addEventListener(Event.ENTER_FRAME, _manageParticles);
 			// --- Planet defition
 			if (pClicked.isBig) {
 				_bigPlanet = pClicked;
@@ -44,28 +42,35 @@ package game {
 			// --- Link
 			_littlePlanet.createLink(_bigPlanet);
 			this.graphics.beginFill(0xFFFFFF, 0);
-			this.graphics.lineStyle(1.5, 0xFFFFFF);
+			this.graphics.lineStyle(0.8, 0xFFFFFF);
 			this.graphics.moveTo(_littlePlanet.x, _littlePlanet.y);
 			this.graphics.lineTo(_bigPlanet.x, _bigPlanet.y);
-			var glowFilter:GlowFilter = new GlowFilter(0x00FFFF, 0.6, 1.5, 1.5);
-			var blurFilter:BlurFilter = new BlurFilter();
-			this.filters = [glowFilter,blurFilter];
+			var glowFilter:GlowFilter = new GlowFilter(0x00FFFF, 0.3, 2.5, 2.5);
+			var blurFilter:BlurFilter = new BlurFilter(1.8, 1.8);
+			this.filters = [glowFilter, blurFilter];
+			
+			// --- Listeners
+			this.addEventListener(Event.ENTER_FRAME, _manageParticles);
+			this.addEventListener(Event.REMOVED_FROM_STAGE, _removeListeners);
 		}
 		
 		private function _manageParticles(e:Event):void {
-			var u:Number;
-			var xU:Number;
-			var yU:Number;
-			for (var i:int; i < 5; i++) {
-				u = Maths.rand(1);
-				xU = _littlePlanet.x * u + _bigPlanet.x * (1 - u);
-				yU = _littlePlanet.y * u + _bigPlanet.y * (1 - u);	
+			if (!Main.game.isTesting) {
+				var u:Number;
+				var xU:Number;
+				var yU:Number;
+				for (var i:int; i < 5; i++) {
+					u = Maths.rand(1);
+					xU = _littlePlanet.x * u + _bigPlanet.x * (1 - u);
+					yU = _littlePlanet.y * u + _bigPlanet.y * (1 - u);	
+				}
+				Effects.particle(LinkParticle, 1, Main.game.effectsBack, xU, yU, 1, 18, 0.6, true);
 			}
-			if (Main.game.isTesting) {
-				
-			} else {
-				//Effects.particle(SparkParticle, 1, Main.game.effectsBack, xU, yU, 0.8, 5, 0.8, true);
-			}
+		}
+		
+		private function _removeListeners (e:Event):void {
+			this.removeEventListener(Event.ENTER_FRAME, _manageParticles);
+			this.removeEventListener(Event.REMOVED_FROM_STAGE, _removeListeners);
 		}
 		
 		// GETTERS

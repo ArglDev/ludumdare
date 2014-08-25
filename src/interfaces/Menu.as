@@ -96,7 +96,6 @@ package interfaces {
 					status == 1 ? child.disable() : child.enable();
 				}
 			}
-			//Service.readObject(LevelData.status, 'UPDATE STATUS');
 		}
 		
 		

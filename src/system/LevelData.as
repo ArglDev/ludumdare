@@ -16,83 +16,175 @@ package system {
 			originX
 			originY
 			direction : 0=none, -1=clock, 1=anti clock
-			skins : (type 1 >> 0-4) (type 2 >> 0-7) 
+			skins : (type1 => 0-4) (type2 => 0-7) 
 		*/
 		public static function init() {
 			var lvl:int;
-			var decay:int;
-			
+			var decX:int;
+			var decY:int;
+
+			// 1 TUTO : control
 			lvl = 0;
 			DATA[lvl] 		= [];
 			DATA[lvl][0] 	= [2, 400, 300];
 			DATA[lvl][1] 	= [1, 300, 380, 1];
 			
-			lvl = 1;
+			// 2 TUTO : small + 1 link
+			lvl ++;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 400, 300];
-			DATA[lvl][1] 	= [1, 300, 380, 1];
-			DATA[lvl][2] 	= [2, 500, 380, 1];
+			DATA[lvl][0] 	= [2, 280, 225, 0];
+			DATA[lvl][1] 	= [1, 71, 90, 1];
+			DATA[lvl][2] 	= [2, 466, 386, 0];
+			DATA[lvl][3] 	= [1, 685, 520, 1];
 			
-			lvl = 2;
+			// 3 TUTO : big = multi link
+			lvl ++;
 			DATA[lvl] 		= [];
 			DATA[lvl][0] 	= [2, 200, 300];
 			DATA[lvl][1] 	= [1, 150, 380, 1];
 			DATA[lvl][2] 	= [1, 560, 120, -1];
 			DATA[lvl][3] 	= [2, 400, 420];
 			
-			lvl = 3;
+			// 4 TUTO : sens
+			lvl ++;
 			DATA[lvl] 		= [];
-			DATA[lvl][0]	= [2, 400, 300];
-			DATA[lvl][1] 	= [1, 150, 380, 1];
-			DATA[lvl][2] 	= [2, 400, 420];
+			DATA[lvl][0]	= [2, 515, 193, 0];
+			DATA[lvl][1] 	= [1, 139, 299, 1];
+			DATA[lvl][2] 	= [2, 269, 396, 0];
+			DATA[lvl][3] 	= [1, 389, 300, -1];
+			DATA[lvl][4] 	= [1, 639, 301, -1];
+
+			lvl ++
+			DATA[lvl] 		= [];
+			DATA[lvl][0] 	= [2, 316, 239, 0];
+			DATA[lvl][1] 	= [1, 379, 434, -1];
+			DATA[lvl][2] 	= [2, 380, 343, 0];
+			DATA[lvl][3] 	= [2, 439, 237, 0];
+			DATA[lvl][4] 	= [1, 242, 189, -1];
+			DATA[lvl][5] 	= [1, 504, 184, -1];
 			
-			lvl = 4;
+			lvl ++;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 380, 100];
-			DATA[lvl][1] 	= [1, 350, 380, -1];
-			DATA[lvl][2] 	= [1, 160, 520, 1];
-			DATA[lvl][3] 	= [2, 220, 150];
-			DATA[lvl][4] 	= [1, 700, 220, -1];
-			DATA[lvl][5] 	= [2, 280, 400];
-			DATA[lvl][6] 	= [1, 420, 450, 1];
-			DATA[lvl][7] 	= [2, 500, 162];
+			DATA[lvl][0] 	= [2, 250, 150, 0];
+			DATA[lvl][1] 	= [2, 250, 450, 0];
+			DATA[lvl][2] 	= [2, 550, 150, 0];
+			DATA[lvl][3] 	= [2, 550, 450, 0];
+			DATA[lvl][4] 	= [1, 400, 299, 1];
+			DATA[lvl][5] 	= [1, 682, 295, -1];
+			DATA[lvl][6] 	= [1, 98, 311, 1];
+			DATA[lvl][7] 	= [1, 250, 303, -1];
+			DATA[lvl][8] 	= [1, 551, 295, -1];
 			
-			lvl = 5;
+			lvl ++;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 305, 245];
-			DATA[lvl][1] 	= [2, 495, 245];
-			DATA[lvl][2] 	= [2, 400, 410];
-			DATA[lvl][3] 	= [1, 210, 190, -1];
-			DATA[lvl][4] 	= [1, 590, 190, -1];
-			DATA[lvl][5] 	= [1, 400, 520, -1];
+			DATA[lvl][0] 	= [2, 565, 295, 0];
+			DATA[lvl][1] 	= [1, 131, 397, -1];
+			DATA[lvl][2]	= [2, 213, 297, 0];
+			DATA[lvl][3] 	= [1, 645, 392, 1];
+			DATA[lvl][4] 	= [1, 325, 225, 1];
+			DATA[lvl][5] 	= [1, 458, 225, -1];
+			DATA[lvl][6] 	= [2, 391, 297, 0];
 			
-			// ============================================================
-			// ARGL
-			// ============================================================
-			lvl = 6;
-			decay = 40;
+			lvl ++;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 409, 310+decay, 0];
-			DATA[lvl][1] 	= [1, 705, 516+decay, 1];
-			DATA[lvl][2] 	= [2, 189, 137+decay, 0];
-			DATA[lvl][3] 	= [2, 51, 61+decay, 0];
-			DATA[lvl][4] 	= [1, 243, 75+decay, -1];
-			DATA[lvl][5] 	= [2, 781, 7+decay, 0];
-			DATA[lvl][6] 	= [1, 260, 196+decay, 1];
+			DATA[lvl][0] 	= [2, 504, 206, 0];
+			DATA[lvl][1] 	= [1, 369, 214, -1];
+			DATA[lvl][2] 	= [2, 680, 70, 0];
+			DATA[lvl][3] 	= [1, 637, 183, 1];
+			DATA[lvl][4] 	= [2, 124, 495, 0];
+			DATA[lvl][5] 	= [2, 312, 353, 0];
+			DATA[lvl][6] 	= [1, 553, 84, -1];
+			DATA[lvl][7] 	= [1, 454, 334, 1];
+			DATA[lvl][8] 	= [1, 179, 363, -1];
+			DATA[lvl][9] 	= [1, 270, 477, 1];
 			
-			lvl = 7;
-			decay = 50;
+			lvl ++;
 			DATA[lvl] 		= [];
-			DATA[lvl][0] 	= [2, 299+decay, 472, 0];
-			DATA[lvl][1] 	= [1, 64+decay, 500, 1];
-			DATA[lvl][2] 	= [2, 451+decay, 425, 0];
-			DATA[lvl][3] 	= [2, 574+decay, 324, 0];
-			DATA[lvl][4] 	= [2, 634+decay, 227, 0];
-			DATA[lvl][5] 	= [1, 374+decay, 445, 1];
-			DATA[lvl][6] 	= [1, 481+decay, 118, 1];
-			DATA[lvl][7] 	= [2, 105+decay, 151, 0];
-			DATA[lvl][8] 	= [2, 25+decay, 191, 0];
-			DATA[lvl][9] 	= [2, 270+decay, 355, 0];
+			DATA[lvl][0] 	= [2, 349, 472, 0, 5];
+			DATA[lvl][1] 	= [1, 114, 500, -1];
+			DATA[lvl][2] 	= [2, 501, 425, 0, 5];
+			DATA[lvl][3] 	= [2, 624, 324, 0, 5];
+			DATA[lvl][4] 	= [2, 684, 227, 0, 5];
+			DATA[lvl][5] 	= [1, 424, 445, 1];
+			DATA[lvl][6] 	= [1, 531, 118, 1];
+			DATA[lvl][7] 	= [2, 175, 135, 0, 5];
+			DATA[lvl][8] 	= [2, 78, 196, 0, 5];
+			DATA[lvl][9] 	= [2, 320, 355, 0, 5];
+			
+			// 10
+			lvl ++;
+			decX = 0;
+			decY = 0;
+			DATA[lvl] 		= [];
+			DATA[lvl][0] 	= [2, 312, 411, 0];
+			DATA[lvl][1] 	= [1, 400, 408, -1];
+			DATA[lvl][2] 	= [2, 484, 411, 0];
+			DATA[lvl][3] 	= [1, 245, 343, -1];
+			DATA[lvl][4] 	= [1, 554, 344, 1];
+			DATA[lvl][5] 	= [1, 403, 174, -1];
+			
+			lvl ++;
+			DATA[lvl] 		= [];
+			DATA[lvl][0] 	= [2, 409+decX, 310+decY, 0];
+			DATA[lvl][1] 	= [1, 705+decX, 516+decY, 1];
+			DATA[lvl][2] 	= [2, 189+decX, 137+decY, 0];
+			DATA[lvl][3] 	= [2, 51+decX, 61+decY, 0];
+			DATA[lvl][4] 	= [1, 243+decX, 75+decY, -1];
+			DATA[lvl][5] 	= [2, 781+decX, 7+decY, 0];
+			DATA[lvl][6] 	= [1, 260 + decX, 196 + decY, 1];
+			
+			
+			// NEW ===========================================================
+			// 12
+			lvl ++;
+			DATA[lvl]		= [];
+			DATA[lvl][0] 	= [2, 296, 342, 0];
+			DATA[lvl][1] 	= [1, 399, 289, -1];
+			DATA[lvl][2] 	= [2, 500, 342, 0];
+			DATA[lvl][3] 	= [1, 588, 294, -1];
+			DATA[lvl][4] 	= [1, 395, 395, 1];
+			DATA[lvl][5] 	= [1, 212, 284, 1];
+			
+			lvl ++;
+			DATA[lvl]		= [];
+			DATA[lvl][0] 	= [2, 255, 301, 0];
+			DATA[lvl][1] 	= [1, 431, 100, 1];
+			DATA[lvl][2] 	= [2, 367, 170, 0];
+			DATA[lvl][3] 	= [2, 169, 224, 0];
+			DATA[lvl][4] 	= [2, 337, 377, 0];
+			DATA[lvl][5] 	= [1, 85, 147, -1];
+			DATA[lvl][6] 	= [1, 428, 461, 1];
+			DATA[lvl][7] 	= [1, 306, 237, -1];
+			
+			lvl ++;
+			decX = 50;
+			decY = 30;
+			DATA[lvl]		= [];
+			DATA[lvl][0] 	= [2, 400 + decX, 400 + decY, 0];
+			DATA[lvl][1] 	= [2, 100 + decX, 100 + decY, 0];
+			DATA[lvl][2] 	= [2, 612 + decX, 312 + decY, 0];
+			DATA[lvl][3] 	= [2, 188 + decX, 312 + decY, 0];
+			DATA[lvl][4] 	= [1, 400 + decX, 099 + decY, 1];
+			DATA[lvl][5] 	= [1, 515 + decX, 377 + decY, 1];
+			DATA[lvl][6] 	= [1, 285 + decX, 377 + decY, 1];
+			DATA[lvl][7] 	= [1, 123 + decX, 215 + decY, 1];
+			DATA[lvl][8] 	= [1, 400 + decX, 500 + decY, 1];
+			DATA[lvl][9] 	= [1, 117 + decX, 383 + decY, 1];
+			
+			lvl ++;
+			DATA[lvl] 		= [];
+			DATA[lvl][0] 	= [2, 300, 247, 0];
+			DATA[lvl][1] 	= [1, 541, 177, -1];
+			DATA[lvl][2]	= [2, 360, 347, 0];
+			DATA[lvl][3]	= [2, 417, 247, 0];
+			DATA[lvl][4]	= [1, 182, 178, -1];
+			DATA[lvl][5]	= [1, 362, 467, -1];
+			DATA[lvl][6]	= [1, 363, 570, 1];
+			DATA[lvl][7]	= [1, 646, 112, 1];
+			DATA[lvl][8]	= [1, 90, 111, 1];
+			DATA[lvl][9]	= [1, 215, 366, -1];
+			DATA[lvl][10]	= [1, 502, 365, -1];
+			DATA[lvl][11]	= [1, 359, 125, -1];
 		}
 		
 		public static function initStatus ():void {
@@ -106,6 +198,13 @@ package system {
 			if (_status[pStatusId] && _status[pStatusId] < pValue) {
 				_status[pStatusId] = pValue;
 			}
+		}
+		
+		public static function unlockAll ():void {
+			for (var i:int = 0; i < nbLevels; i ++) {
+				setStatus(i, 2);
+			}
+			SaveManager.save();
 		}
 		
 		

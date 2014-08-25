@@ -48,6 +48,7 @@
 			if (!_isBuilding) {
 				if (_hasLost) {
 					Screens.gameButtons.show();
+					Service.cleanContainer(_effectsInterface, 0);
 					Service.cleanContainer(_effectsBack, 0);
 					Service.cleanContainer(_effects, 0);
 					Service.cleanContainer(_linksTemp, 0);
@@ -76,13 +77,15 @@
 		}
 		
 		private function _cleanGameSpace ():void {
+			Service.cleanContainer(_content, 0);
+			Service.cleanContainer(_effects, 0);
+			Service.cleanContainer(_effectsBack, 0);
+			Service.cleanContainer(_effectsInterface, 0);
 			Service.cleanContainer(_links, 0);
 			Service.cleanContainer(_linksTemp, 0);
-			Service.cleanContainer(_effectsBack, 0);
 			Service.cleanContainer(_planets, 0);
-			Service.cleanContainer(_effects, 0);
-			Service.cleanContainer(_content, 0);
 			Service.cleanContainer(Global.stage, 1);
+			Service.readContainer(Main.game.effectsBack, 'EFFECTS BACK');
 		}
 		
 		public function failLevel ():void {
@@ -172,6 +175,8 @@
 			_failText.cancelWrite();
 			_winText.cancelWrite();
 			if (!_isTesting) {
+				Service.cleanContainer(_effectsBack, 0);
+				
 				LinkManager.stop();
 				ZoomManager.start();
 				_links.visible = false;

@@ -1,6 +1,7 @@
 package {
 	
 	import com.greensock.*;
+	import com.greensock.easing.*;
 	import com.soulgame.interfaces.*;
 	import com.soulgame.system.*;
 	import com.soulgame.utils.*;
@@ -62,8 +63,11 @@ package {
 			ButtonCore.setSoundClick (Sounds.buttonClick, 0.30);
 			ButtonCore.setSoundOver (Sounds.buttonOver, 0.15);
 			
+			// Misc.
+			Sounds.clickPlanet.read(0.8);
 			_preloader.removeEventListener(Event.COMPLETE, _init);
 			_preloader.buttonPlayGame.y = 365;
+			TweenLite.from(_preloader.buttonPlayGame, 30, { useFrames:true, scaleX:0.2, scaleY:0.2, ease:Elastic.easeOut } );
 		}
 		
 		private function _loadGame ():void {
