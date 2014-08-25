@@ -16,6 +16,16 @@ package interfaces {
 	 */
 	public class Menu {
 		
+		// PROPERTIES
+		private static var _effectsMenu:Sprite;
+		
+		
+		// METHODS
+		public static function clearData ():void {
+			SaveManager.clear();
+			Sounds.highDown.read(1.1);
+		}
+		
 		private static function _clickLevel (e:MouseEvent):void {
 			Main.game.startLevel(ButtonMax(e.currentTarget).id);
 		}
@@ -44,6 +54,8 @@ package interfaces {
 		}
 		
 		public static function init ():void {
+			_effectsMenu = new Sprite();
+			
 			openTitle();
 			
 			// Level select buttons
@@ -89,9 +101,10 @@ package interfaces {
 			Service.readObject(LevelData.status, 'UPDATE STATUS');
 		}
 		
-		public static function clearData ():void {
-			SaveManager.clear();
-			Sounds.highDown.read(1.1);
+		
+		// GETTERS
+		static public function get effectsMenu():Sprite {
+			return _effectsMenu;
 		}
 		
 	

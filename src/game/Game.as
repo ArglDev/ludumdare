@@ -22,7 +22,6 @@
 		private var _content:Sprite;
 		private var _effects:Sprite;
 		private var _effectsBack:Sprite;
-		private var _halo:MovieClip;
 		private var _links:Sprite;
 		private var _linksTemp:Sprite;
 		private var _planets:Sprite;
@@ -35,7 +34,8 @@
 		private var _totalDeath:int;
 		
 		// --- Misc.
-		private var _background:MovieClip;
+		private var _background1:MovieClip;
+		private var _background2:MovieClip;
 		private static var _center:Point = new Point(400, 300);
 		private var _delayWin:Delay;
 		private var _failText:TextFieldMax;
@@ -50,8 +50,10 @@
 			_links 			= new Sprite();
 			_linksTemp		= new Sprite();
 			_planets 		= new Sprite();
-			_background 	= new Background();
-			_halo			= new Halo();
+			_background1 	= new Background1();
+			_background2	= new Background2();
+			
+			//_background1.setChildIndex(_background1.grid, _background1.numChildren - 1);
 			
 			_delayWin	= new Delay((360 / Planet.ANGLE_SPEED), 1, 0, 11, _winLevel);;
 			_failText	= new TextFieldMax(Screens.gameButtons, 400, 16, Texts.failText, '');
@@ -78,8 +80,9 @@
 				_winText.cancelWrite();
 				_delayWin.stop();
 				_links.visible = true;
-				_background.grid.alpha = 0;
-				TweenLite.to(_background.grid, 8, { alpha:1, useFrames:true } );
+				_background1.grid.alpha = 0;
+				_background2.alpha = 0;
+				TweenLite.to(_background1.grid, 8, { alpha:1, useFrames:true } );
 				_isBuilding = true;
 				_isTesting = false;
 				Global.stage.dispatchEvent(new Event (GameEvents.RESET_LEVEL));
@@ -102,7 +105,7 @@
 		
 		public function failLevel ():void {
 			if (!_hasLost) {
-				var flash:FlashScreen = new FlashScreen(Global.stage, 0.4, 6);
+				var flash:FlashScreen = new FlashScreen(Global.stage, 0.12, 6);
 				_totalDeath ++;
 				_hasLost = true;
 				_failText.write(1, Failure.comment, 1);
@@ -132,14 +135,15 @@
 			_hasLost 		= false;
 			
 			// Display List
-			Global.stage.addChild(_background);
+			Global.stage.addChild(_background1);
 			Global.stage.addChild(_content);
-			_content.addChild(_halo);
+			_content.addChild(_background2);
 			_content.addChild(_links);
 			_content.addChild(_effectsBack);
 			_content.addChild(_planets);
 			_content.addChild(_effects);
 			_content.addChild(_linksTemp);
+			Global.stage.addChild(Menu.effectsMenu);
 			Screens.topButtons.show();
 			Screens.gameButtons.show();
 			
@@ -172,8 +176,9 @@
 				LinkManager.stop();
 				ZoomManager.start();
 				_links.visible = false;
-				_background.grid.alpha = 1;
-				TweenLite.to(_background.grid, 8, { alpha:0, useFrames:true } );
+				_background1.grid.alpha = 1;
+				_background2.alpha = 1;
+				TweenLite.to(_background1.grid, 8, { alpha:0, useFrames:true } );
 				_isBuilding = false;
 				_isTesting = true;
 				
@@ -196,14 +201,23 @@
 			_delayWin.stop();
 			_winText.write(1, 'LEVEL COMPLETE', 1);
 			Sounds.successLong.read(1.1);
-			//Menu.createFirework(_effects, 400, 500);
-			Screens.gameButtons.buttonNext.alpha = 1;
+			Menu.createFirework(Menu.effectsMenu, 400, 500);
+			
+			// --- Button next update
+			if (_currentLevel < LevelData.nbLevels - 1) {
+				Screens.gameButtons.buttonNext.enable();
+			} else {
+				Screens.gameButtons.buttonNext.disable();
+			}
 		}
 		
 		
 		// GETTERS
-		public function get background():MovieClip {
-			return _background;
+		public function get background1():MovieClip {
+			return _background1;
+		}
+		public function get background2():MovieClip {
+			return _background2;
 		}
 		public function get content():Sprite {
 			return _content;

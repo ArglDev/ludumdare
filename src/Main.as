@@ -44,7 +44,7 @@ package {
 			LevelEditor.activate();
 			
 			// Sounds
-			TextFieldMax.setSound (Sounds.typeLetter, 0.16, Sounds.typeLetter, 0.2, 1);
+			TextFieldMax.setSound (Sounds.typeLetter, 0.16, Sounds.tutu, 0.2, 1);
 			ButtonCore.setSoundClick (Sounds.buttonClick, 0.30);
 			ButtonCore.setSoundOver (Sounds.buttonOver, 0.15);
 		}

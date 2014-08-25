@@ -24,7 +24,7 @@
 		public static const ZOOM_MARGIN:Number = 50;
 		private static var _list:Array = [];
 		
-		private var _arrowDirection:MovieClip;
+		private var _arrow:MovieClip;
 		private var _derivX:Number;
 		private var _derivY:Number;
 		private var _direction:int;
@@ -37,7 +37,8 @@
 		private var _radius:Number;
 		private var _rotateSpeed:Number;
 		private var _type:int;
-		private var _tween:TweenLite;
+		private var _tweenExplode:TweenLite;
+		private var _tweenDrift:TweenLite;
 
 		
 		// CONSTRUCTOR
@@ -56,9 +57,9 @@
 				PlanetClass = SKINS1[Maths.randInt(SKINS1.length - 1)]
 				_radius = RADIUS1;
 				_rotateSpeed = Maths.rand(5) * Maths.giveSign();
-				_arrowDirection = new LoopArrow;
-				_arrowDirection.scaleX = _direction; 
-				this.addChild(_arrowDirection);
+				_arrow = new ArrowDirection;
+				_arrow.scaleX = _direction; 
+				this.addChild(_arrow);
 			} else if (_type == 2) {
 				PlanetClass = SKINS2[Maths.randInt(SKINS2.length - 1)]
 				_radius = RADIUS2;
@@ -77,6 +78,10 @@
 		
 		
 		// METHODS
+		public function collideBorder():Boolean {
+			return (x > (790 - _radius) || x < _radius + 10 || y > (590 - _radius) || y < _radius + 10);
+		}
+		
 		public function createLink(pPlanet:Planet) {
 			_link = pPlanet;
 			_distance = Maths.distance(this, pPlanet);
@@ -88,17 +93,46 @@
 		}
 		
 		private function explode ():void {
-			this.removeEventListener(Event.ENTER_FRAME, _manage);
-			_hasExplode = true;
-			_tween = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Bounce.easeOut, useFrames:true } );
+			if (!_hasExplode) {
+				this.removeEventListener(Event.ENTER_FRAME, _manage);
+				_hasExplode = true;
+				_killTweens();
+				_tweenExplode = new TweenLite(this, 10, { alpha:0, scaleX:0.1, scaleY:0.1, ease:Bounce.easeOut, useFrames:true } );
+				
+				Sounds.explode.read(0.35 + _radius / 80);
+				Sounds.readExplode(0.2 + _radius / 90);
+				
+				var coef:Number = scaleX * 1.7;
+				Effects.particle(SparkParticle, 20 * scaleX, Main.game.effects, x, y, 3.5 * coef, 55, 1.15, true, false, 0.1, -1, 0, -1);
+				Effects.particle(FireParticle, 20 * scaleX, Main.game.effects, x, y, 7 * coef, 15, 3 * coef);
+				Main.game.failLevel();
+			}
+		}
+		
+		private function _getClosestBigPlanet():Planet {
+			var dist:Number = 1000;
+			var distTemp:Number;
+			var closest:Planet;
 			
-			Sounds.explode.read(0.35 + _radius / 80);
-			Sounds.readExplode(0.2 + _radius / 90);
-			
-			var coef:Number = scaleX * 1.7;
-			Effects.particle(SparkParticle, 20 * scaleX, Main.game.effects, x, y, 3.5 * coef, 55, 1.15, true, false, 0.1, -1, 0, -1);
-			Effects.particle(FireParticle, 20 * scaleX, Main.game.effects, x, y, 7 * coef, 15, 3 * coef);
-			Main.game.failLevel();
+			for each (var planet:Planet in _list) {
+				if (planet.isBig) {
+					distTemp = Maths.distance(this, planet);
+					if (distTemp < dist) {
+						dist = distTemp;
+						closest = planet;
+					}
+				}
+			}
+			return closest;
+		}
+		
+		private function _killTweens ():void {
+			if (_tweenExplode != null) {
+				_tweenExplode.kill();
+			}
+			if (_tweenDrift!= null) {
+				_tweenDrift.kill();
+			}
 		}
 		
 		private function _manage(e:Event) {
@@ -116,9 +150,6 @@
 					var angle:Number = Maths.angleBetween(_link, this) + (ANGLE_SPEED * -_direction);
 					x = _link.x + Math.cos(Math.PI * angle / 180) * _distance;
 					y = _link.y + Math.sin(Math.PI * angle / 180) * _distance;
-				} else {
-					x += _derivX;
-					y += _derivY;
 				}
 				
 				// Collision planets
@@ -133,26 +164,6 @@
 			}
 		}
 
-		private function _reset (e:Event = null):void {
-			if (_tween) {
-				_tween.kill();
-			}
-			if (_arrowDirection != null) {
-				_arrowDirection.alpha = 1;
-				_arrowDirection.scaleX = _direction; 
-			}
-			alpha = 1;
-			x = _originX;
-			y = _originY;
-			resetScale();
-			_hasExplode = false;
-			this.removeEventListener(Event.ENTER_FRAME, _manage);
-		}
-		
-		public function resetScale ():void {
-			scaleX = scaleY = _type == 2 ? 1 : RADIUS1/RADIUS2;
-		}
-		
 		private function _removeEventListeners (e:Event):void {
 			this.removeEventListener(Event.ENTER_FRAME, _manage);
 			Global.stage.removeEventListener(GameEvents.RESET_LEVEL, _reset);
@@ -160,20 +171,28 @@
 			this.removeEventListener(Event.REMOVED_FROM_STAGE, _removeEventListeners);
 		}
 		
-		private function _test (e:Event):void {
-			if (_arrowDirection != null) {
-				_arrowDirection.alpha = 0;
+		private function _reset (e:Event = null):void {
+			_killTweens();
+			if (_arrow != null) {
+				_arrow.alpha = 1;
+				_arrow.scaleX = _direction; 
 			}
-			if (_type == 1 && _link == null) {
-				_derivX = (1 + Maths.rand(5)) * Maths.giveSign();
-				_derivY = (1 + Maths.rand(5)) * Maths.giveSign();
-			}
-			this.addEventListener(Event.ENTER_FRAME, _manage);
+			alpha = 1;
+			rotation = 0;
+			x = _originX;
+			y = _originY;
+			resetScale();
+			_hasExplode = false;
+			this.removeEventListener(Event.ENTER_FRAME, _manage);
 		}
 		
-		override public function toString():String {
-			var str:String = super.toString();
-			return str.slice(8, str.length - 1);			
+		public function resetColor() {
+			alpha = 1;
+			filters = [];
+		}
+		
+		public function resetScale ():void {
+			scaleX = scaleY = _type == 2 ? 1 : RADIUS1/RADIUS2;
 		}
 		
 		public function setGrey() {
@@ -191,47 +210,29 @@
 			alpha = DISABLED_ALPHA;
 		}
 		
-		public function collideBorder():Boolean {
-			return (x > (790 - _radius) || x < _radius + 10 || y > (590 - _radius) || y < _radius + 10);
+		private function _test (e:Event):void {
+			if (_arrow != null) {
+				_arrow.alpha = 0;
+			}
+			
+			// --- Drif if not linked
+			if (_type == 1 && _link == null) {
+				var target:Planet = _getClosestBigPlanet();
+				_tweenDrift = new TweenLite(this, 35, { x:target.x, y:target.y, ease:Linear.easeIn, useFrames:true, onComplete:explode} );
+			}
+			
+			this.addEventListener(Event.ENTER_FRAME, _manage);
 		}
 		
-		public function resetColor() {
-			alpha = 1;
-			filters = [];
+		override public function toString():String {
+			var str:String = super.toString();
+			return str.slice(8, str.length - 1);			
 		}
 		
 		public function checkLinkBan(pPlanet:Planet) {
 			return ((pPlanet != this) && (pPlanet.isBig != this.isBig) && (!this.hasLink || this.isBig));	
 		}
 		
-		public static function get farthestPlanetScale():Number {
-			var lowestScale:Number = 1;
-			var distX:Number ;
-			var distY:Number ;
-			var newScaleX:Number ;
-			var newScaleY:Number ; 
-			for each(var planet:Planet in Planet._list) {
-				if (planet.isSmall) {
-					distX = Math.abs(planet.x - 400) + planet.radius + ZOOM_MARGIN;
-					distY = Math.abs(planet.y - 300) + planet.radius + ZOOM_MARGIN;
-					newScaleX = 1;
-					newScaleY = 1;
-					if (distX > 400 ) {
-						newScaleX = 400 / (distX);
-						if (lowestScale > newScaleX) {
-							lowestScale = newScaleX;
-						}
-					}
-					if (distY > 300 ) {
-						newScaleY = 300 / (distY);
-						if (lowestScale > newScaleY) {
-							lowestScale = newScaleY;
-						}
-					}
-				}
-			}
-			return lowestScale;
-		}
 		
 		// GETTERS
 		public static function get oneNotLinked ():Boolean {
@@ -292,8 +293,8 @@
 			
 		public function setDirectionEditor(pDirection:int):void {
 			_direction = pDirection;
-			if (_arrowDirection != null) {
-				_arrowDirection.scaleX = _direction; 
+			if (_arrow != null) {
+				_arrow.scaleX = _direction; 
 			}
 		}
 		

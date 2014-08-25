@@ -50,9 +50,10 @@ package system {
 				if (e.keyCode == Keys.space) {
 					if (_inEditor) {
 						LinkManager.reset();
+						reset();
 					} else {
 						LinkManager.removeLinks();
-						Main.game.background.gotoAndStop(3)
+						Main.game.background1.gotoAndStop(3)
 						LinkManager.stop();
 						Global.stage.addEventListener(MouseEvent.MOUSE_DOWN, _click);
 						Global.stage.addEventListener(MouseEvent.MOUSE_UP, _release);
@@ -89,7 +90,7 @@ package system {
 					var lvl:int = Main.game.currentLevel;
 					trace('\r================ LEVEL ' + lvl + ' DATA ==================');
 					for (var i:int = 0; i < Main.game.planets.numChildren ; i++) {
-						trace('DATA[' + lvl + '][' + i + '] = ' + Planet(Main.game.planets.getChildAt(i)).getEditorData() + ';');
+						trace('DATA[lvl][' + i + '] = ' + Planet(Main.game.planets.getChildAt(i)).getEditorData() + ';');
 					}
 					trace('============================================================');
 				}
@@ -111,7 +112,6 @@ package system {
 			if (currPlanet != null) {
 				currPlanet.stopDrag();
 				currPlanet.setCoordEditor(currPlanet.x, currPlanet.y);
-				trace('EDITOR => coord = (' + currPlanet.x + ' ; ' + currPlanet.y + ')');
 			}
 		}
 		
@@ -125,7 +125,7 @@ package system {
 			if (LinkManager.clickedPlanet) {
 				LinkManager.clickedPlanet.filters = [];
 			}
-			Main.game.background.gotoAndStop(1)
+			Main.game.background1.gotoAndStop(1)
 			_inEditor = false; 
 			_removeAllLinks();
 			Global.stage.removeEventListener(MouseEvent.MOUSE_DOWN, _click);

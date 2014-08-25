@@ -1,22 +1,7 @@
-TODO
-- revoir cohérence globale de tout les button/frame et polices
-- rajouter mini trace sur trajectoire plante?
-- ajouter perte de partie si pas de lien
-- bouton speed up
-- créer un générateur aléatoire trié comem seq RG2
-- faire en sorte que si petite liée, peut être quand meme clickable pour bien voir qu'elle peut plus se lier à rien. PLus logique
-
-AVANT DE POSTER
-- bloquer bouton next si plus de level
-- mettre le halo en mode bitmap 
-- bouton Unlock All Levels
-- désactiver l'éditeur de niveau
-
 PLANETES
 - Grande : planète mère autour de laquelle les autres gravitent
 - Moyenne : gravite autour de la grosse à vitesse X
 - Petite : gravite autour de la grosse à vitesse X * 2 
-
 
 REGLES DE LIENS
 - Lien d'une plus grosse vers une plus petite => rotation de la petite selon sa couleur (coulour1 = horaire, couleur 2 = anti horaire)
@@ -50,16 +35,4 @@ ACHIEVEMENTS
 Plusieurs type de médaille sur level possibles (cumulable ou alternable) :
  - dégommer l'allien
  - réussir en utilisant que x grosse planète
- - réussir à détruire toute les planète ;D
-
-
-FINITIONS
-- space pour switcher mode build/test
-- décaler comment failed un peu après
-- adoucir transitions build/test
-- trouver une façon simple, fixe et plus smooth de faire perdre le niveau au joueur si les planète ne sont pas linké. 
-- refaire title avec planète visage, yeux
-- les grosses planète on des visages
-- mettre un background vivant : étoile qui défilent lentement, des trucs qui passe, des étoiles filantes
-- ajouter fissure orientée sur grosse planète (si on ne l'a fait pas exploser)
-- ajouter formule maths dans bg buils
+ - réussir à détruire toute les planète ;)

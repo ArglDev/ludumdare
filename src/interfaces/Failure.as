@@ -53,7 +53,7 @@ package interfaces {
 		// GETTERS / SETTERS
 		public static function get comment():String {
 			if (_index >= LIST.length) {
-				return 'FAIL - ' + Main.game.totalDeath;
+				return 'FAIL ' + Main.game.totalDeath;
 			} else {
 				_index++;
 				return '' + LIST[_index - 1] + '';

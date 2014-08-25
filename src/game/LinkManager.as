@@ -118,7 +118,7 @@ package game {
 						link.littlePlanet.deleteLink();
 						Sounds.pop.read(0.2);
 						Main.game.links.removeChild(link);
-					}else {
+					} else {
 						linksTemp.push(link);
 					}
 				}
@@ -133,7 +133,6 @@ package game {
 		}
 		
 		public static function reset ():void {
-			LevelEditor.reset();
 			_linkSprite = new Sprite();
 			Main.game.linksTemp.addChild(_linkSprite);
 			_down = false;
