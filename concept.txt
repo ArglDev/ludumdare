@@ -2,11 +2,15 @@ TODO
 - revoir cohérence globale de tout les button/frame et polices
 - rajouter mini trace sur trajectoire plante?
 - ajouter perte de partie si pas de lien
-- jingle victoire
+- bouton speed up
+- créer un générateur aléatoire trié comem seq RG2
+- faire en sorte que si petite liée, peut être quand meme clickable pour bien voir qu'elle peut plus se lier à rien. PLus logique
 
 AVANT DE POSTER
 - bloquer bouton next si plus de level
 - mettre le halo en mode bitmap 
+- bouton Unlock All Levels
+- désactiver l'éditeur de niveau
 
 PLANETES
 - Grande : planète mère autour de laquelle les autres gravitent

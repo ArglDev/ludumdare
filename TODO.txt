@@ -1,0 +1,30 @@
+TODO
+- revoir cohérence globale de tout les button/frame et polices
+- rajouter mini trace sur trajectoire plante?
+- ajouter perte de partie si pas de lien
+- bouton speed up
+- créer un générateur aléatoire trié comem seq RG2
+- faire en sorte que si petite liée, peut être quand meme clickable pour bien voir qu'elle peut plus se lier à rien. PLus logique
+
+AVANT DE POSTER
+- bloquer bouton next si plus de level
+- mettre le halo en mode bitmap 
+- bouton Unlock All Levels
+- désactiver l'éditeur de niveau
+- tite pour libérer le chemin.
+
+
+FINITIONS
+- redisnger fleche direction
+- créer un plan middle d'étoile qui se scale un peu avec le zoom
+- mettre grosse planètes sombre aléatoire en fond.
+- gérer les graphics de planète de façon non randome
+- space pour switcher mode build/test
+- décaler comment failed un peu après
+- adoucir transitions build/test
+- trouver une façon simple, fixe et plus smooth de faire perdre le niveau au joueur si les planète ne sont pas linké. 
+- refaire title avec planète visage, yeux
+- les grosses planète on des visages
+- mettre un background vivant : étoile qui défilent lentement, des trucs qui passe, des étoiles filantes
+- ajouter fissure orientée sur grosse planète (si on ne l'a fait pas exploser)
+- ajouter formule maths dans bg buils

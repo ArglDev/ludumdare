@@ -5,6 +5,7 @@ package game {
 	import com.soulgame.utils.*;
 	import flash.display.*;
 	import flash.events.*;
+	import flash.ui.Keyboard;
 	import system.*;
 	
 	/**
@@ -14,15 +15,42 @@ package game {
 	public class LinkManager {
 		
 		// PROPERTIES
-		private static var _linkSprite:Sprite;
 		private static var _clickedPlanet:Planet;
-		private static var _down:Boolean;
 		private static var _clickedX:Number;
 		private static var _clickedY:Number;
+		private static var _down:Boolean;
 		private static var _links:Vector.<Link>;
+		private static var _linkSprite:Sprite;
 		
 		
 		// METHODS
+		
+		private static function _checkIntersect(pP1x:Number, pP1y:Number, pP2x:Number, pP2y:Number, pLink:Link):Boolean {
+			var x1:Number = pLink.littlePlanet.x - pLink.bigPlanet.x;
+			var y1:Number = pLink.littlePlanet.y - pLink.bigPlanet.y;
+			
+			var x2:Number = pP1x - pLink.bigPlanet.x;
+			var y2:Number = pP1y - pLink.bigPlanet.y;
+			
+			var x3:Number = pP2x - pLink.bigPlanet.x;
+			var y3:Number = pP2y - pLink.bigPlanet.y;
+			
+			if (Maths.getDeterminant(x1, y1, x2, y2) * Maths.getDeterminant(x1, y1, x3, y3) <= 0) {
+				x1 = pP2x - pP1x;
+				y1 = pP2y - pP1y;
+			
+				x2 = pLink.bigPlanet.x - pP1x;;
+				y2 = pLink.bigPlanet.y - pP1y;
+			
+				x3 = pLink.littlePlanet.x - pP1x;;
+				y3 = pLink.littlePlanet.y - pP1y;
+				
+				return (Maths.getDeterminant(x1, y1, x2, y2) * Maths.getDeterminant(x1, y1, x3, y3))<= 0;
+			} else {
+				return false;
+			}
+			
+		}
 		private static function _click (e:MouseEvent):void {
 			//trace("click");
 			_clickedPlanet = getPlanetFocused();
@@ -41,7 +69,17 @@ package game {
 				_clickedPlanet = null;
 			}
 		}
-
+		
+		public static function getPlanetFocused():Planet {
+			var temp:Planet = null;
+			for each(var planet:Planet in Planet.list) {
+				if (Maths.distance(planet, Service.mouse) <= planet.radius) {
+					temp = planet;
+				}
+			}
+			return temp;
+		}
+		
 		private static function _move(e:MouseEvent):void {
 			if (_down) {
 				_linkSprite.graphics.clear();
@@ -76,7 +114,7 @@ package game {
 				// --- Cut
 				var linksTemp:Vector.<Link> = new Vector.<Link>();
 				for each(var link:Link in _links) {
-					if (checkIntersect(_clickedX, _clickedY, _releasedX, _releasedY, link)) {
+					if (_checkIntersect(_clickedX, _clickedY, _releasedX, _releasedY, link)) {
 						link.littlePlanet.deleteLink();
 						Sounds.pop.read(0.2);
 						Main.game.links.removeChild(link);
@@ -88,8 +126,14 @@ package game {
 			}
 			_linkSprite.graphics.clear();
 		}
-
+		
+		public static function removeLinks ():void {
+			_links = new Vector.<Link>();
+			Service.cleanContainer(Main.game.links, 0);
+		}
+		
 		public static function reset ():void {
+			LevelEditor.reset();
 			_linkSprite = new Sprite();
 			Main.game.linksTemp.addChild(_linkSprite);
 			_down = false;
@@ -99,7 +143,7 @@ package game {
 		}
 		
 		public static function start ():void {
-			_links = new Vector.<Link>();
+			removeLinks();
 			reset();
 		}
 		
@@ -110,43 +154,6 @@ package game {
 			Global.stage.removeEventListener(MouseEvent.MOUSE_DOWN, _click);
 			Global.stage.removeEventListener(MouseEvent.MOUSE_UP, _release);
 			Global.stage.removeEventListener(MouseEvent.MOUSE_MOVE, _move);
-		}
-		
-		private static function getPlanetFocused():Planet {
-			var temp:Planet = null;
-			for each(var planet:Planet in Planet.list) {
-				if (Maths.distance(planet, Service.mouse) <= planet.radius) {
-					temp = planet;
-				}
-			}
-			return temp;
-		}
-		
-		private static function checkIntersect(pP1x:Number, pP1y:Number, pP2x:Number, pP2y:Number, pLink:Link):Boolean {
-			var x1:Number = pLink.littlePlanet.x - pLink.bigPlanet.x;
-			var y1:Number = pLink.littlePlanet.y - pLink.bigPlanet.y;
-			
-			var x2:Number = pP1x - pLink.bigPlanet.x;
-			var y2:Number = pP1y - pLink.bigPlanet.y;
-			
-			var x3:Number = pP2x - pLink.bigPlanet.x;
-			var y3:Number = pP2y - pLink.bigPlanet.y;
-			
-			if (getDeterminant(x1, y1, x2, y2) * getDeterminant(x1, y1, x3, y3) <= 0) {
-				x1 = pP2x - pP1x;
-				y1 = pP2y - pP1y;
-			
-				x2 = pLink.bigPlanet.x - pP1x;;
-				y2 = pLink.bigPlanet.y - pP1y;
-			
-				x3 = pLink.littlePlanet.x - pP1x;;
-				y3 = pLink.littlePlanet.y - pP1y;
-				
-				return (getDeterminant(x1, y1, x2, y2) * getDeterminant(x1, y1, x3, y3))<= 0;
-			}else {
-				return false;
-			}
-			
 		}
 		
 		
@@ -161,11 +168,7 @@ package game {
 		static public function set clickedPlanet(p:Planet):void {
 			_clickedPlanet = p;
 		}
-	
-		// MATHS
-		static public function getDeterminant(pX1:Number, pY1:Number, pX2:Number, pY2:Number ) {
-			return pX1 * pY2 - pY1 * pX2;
-		}
+		
 	}
 
 }

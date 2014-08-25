@@ -41,6 +41,7 @@ package {
 			SaveManager.load();
 			Menu.init();
 			Failure.init();
+			LevelEditor.activate();
 			
 			// Sounds
 			TextFieldMax.setSound (Sounds.typeLetter, 0.16, Sounds.typeLetter, 0.2, 1);

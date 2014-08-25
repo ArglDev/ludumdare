@@ -21,8 +21,9 @@
 		public static const RADIUS2:Number = 50;
 		public static const SKINS1:Array = [Planet2, Planet4, Planet5, Planet6];
 		public static const SKINS2:Array = [Planet1, Planet2, Planet3, Planet4, Planet5, Planet6];
-		public static const ZOOM_MARGIN:Number = 30;
+		public static const ZOOM_MARGIN:Number = 50;
 		private static var _list:Array = [];
+		
 		private var _arrowDirection:MovieClip;
 		private var _derivX:Number;
 		private var _derivY:Number;
@@ -138,6 +139,7 @@
 			}
 			if (_arrowDirection != null) {
 				_arrowDirection.alpha = 1;
+				_arrowDirection.scaleX = _direction; 
 			}
 			alpha = 1;
 			x = _originX;
@@ -241,6 +243,9 @@
 			}
 			return false;
 		}
+		public function get direction():int {
+			return _direction;
+		}
 		public function get hasExplode():Boolean {
 			return _hasExplode;
 		}
@@ -252,6 +257,9 @@
 		}
 		public function get isSmall ():Boolean {
 			return _radius == RADIUS1;
+		}
+		public function get link():Planet {
+			return _link;
 		}	
 		public function get radius():Number {
 			return _radius;
@@ -263,6 +271,30 @@
 		// SETTERS
 		static public function set list(p:Array):void {
 			_list = p;
+		}
+		public function set link(value:Planet):void {
+			_link = value;
+		}
+		
+		
+		
+		// ============================================================
+		// EDITOR
+		// ============================================================		
+		public function getEditorData ():String {
+			return '[' + _type + ', ' + _originX + ', ' + _originY + ', ' + _direction +']';
+		}
+		
+		public function setCoordEditor(pX:int, pY:int):void {
+			_originX = pX;
+			_originY = pY;
+		}
+			
+		public function setDirectionEditor(pDirection:int):void {
+			_direction = pDirection;
+			if (_arrowDirection != null) {
+				_arrowDirection.scaleX = _direction; 
+			}
 		}
 		
 	}

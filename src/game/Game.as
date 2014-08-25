@@ -55,7 +55,7 @@
 			
 			_delayWin	= new Delay((360 / Planet.ANGLE_SPEED), 1, 0, 11, _winLevel);;
 			_failText	= new TextFieldMax(Screens.gameButtons, 400, 16, Texts.failText, '');
-			_winText	= new TextFieldMax(Screens.gameButtons, 400, 490, Texts.winText, '');
+			_winText	= new TextFieldMax(Screens.gameButtons, 400, 510, Texts.winText, '');
 		}
 		
 		
@@ -117,7 +117,7 @@
 		private function _manageBar (e:Event):void {
 			if (_delayWin.progress < 1 && !_hasLost) {
 				Screens.gameButtons.connectBar.bar.scaleX = _delayWin.progress;
-				Screens.gameButtons.connectBar.txt.text = 'CONNECTION ' + Maths.roundUp(_delayWin.progress * 100) + '%';
+				Screens.gameButtons.connectBar.txt.text = 'STABILIZE ' + Maths.roundUp(_delayWin.progress * 100) + '%';
 			} else {
 				Global.stage.removeEventListener(Event.ENTER_FRAME, _manageBar);
 			}
@@ -195,12 +195,16 @@
 			SaveManager.save();
 			_delayWin.stop();
 			_winText.write(1, 'LEVEL COMPLETE', 1);
+			Sounds.successLong.read(1.1);
 			//Menu.createFirework(_effects, 400, 500);
 			Screens.gameButtons.buttonNext.alpha = 1;
 		}
 		
 		
 		// GETTERS
+		public function get background():MovieClip {
+			return _background;
+		}
 		public function get content():Sprite {
 			return _content;
 		}
@@ -245,7 +249,7 @@
 		static public function get center():Point {
 			return _center;
 		}
-	
+			
 	}
 
 }

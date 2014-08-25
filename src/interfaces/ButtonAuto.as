@@ -7,6 +7,7 @@
 	import flash.net.*;
 	import flash.utils.*;
 	import game.*;
+	import system.*;
 	
 	/**
 	 * ...
@@ -31,7 +32,7 @@
 				Main.game.startLevel(Main.game.currentLevel);
 			}
 			
-			if (e.currentTarget is ButtonTest) {
+			if (e.currentTarget is ButtonTest && !LevelEditor.inEditor) {
 				Main.game.testLevel();
 			}
 			
