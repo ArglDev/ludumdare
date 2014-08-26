@@ -1,9 +1,7 @@
 TODO
-- animer étoile bg en fonction souris
-- rajouter un level à moi après le 11
- 
 
 FINITIONS
+- animer étoile bg en fonction souris
 - small qui perd son link = destroy
 - faire en sorte que si petite liée, peut être quand meme clickable pour bien voir qu'elle peut plus se lier à rien. PLus logique
 - bouton speed up
@@ -15,3 +13,5 @@ FINITIONS
 - les grosses planète on des visages
 - mettre un background vivant : étoile qui défilent lentement, des trucs qui passe, des étoiles filantes
 - virer la fleche premiers niveaux (avant le tuto explicatif)
+- gérer les coord en numbers dans l'éditeur
+- référence marrante tout les 5 levels

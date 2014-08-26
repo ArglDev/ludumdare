@@ -19,7 +19,7 @@
 		public static const DISABLED_ALPHA:Number = 1;
 		public static const RADIUS1:Number = 20;
 		public static const RADIUS2:Number = 50;
-		public static const SKINS:Array = [Planet0, Planet1, Planet2, Planet3, Planet4, Planet5, Planet6, Planet7];
+		public static const SKINS:Array = [Planet0, Planet1, Planet2, Planet3, Planet4, Planet5, Planet6, Planet7, Planet8, Planet9, Planet10, Planet11];
 		public static const ZOOM_MARGIN:Number = 50;
 		private static var _list:Array = [];
 		

@@ -26,11 +26,13 @@ package {
 	
 		// CONSTRUCTOR
 		public function Main():void {
+			stop();
+			
 			// Global
 			Global.stage = stage;
 			Global.main = stage.getChildAt(0) as DisplayObjectContainer;
+			
 			_game = new Game();
-			stop();
 			_preloader = Service.findChild(this, Preloader) as Preloader;
 			_loadGame();
 		}
